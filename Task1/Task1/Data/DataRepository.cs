@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Data
 {
-    public class DataRepository : DataService
+    public class DataRepository : IDataService
     {
         DataContext dataContext;
 

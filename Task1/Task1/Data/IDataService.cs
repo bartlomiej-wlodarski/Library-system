@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Data
 {
-    public interface DataService
+    public interface IDataService
     {
         void AddBook(Book book);
         void RemoveBook(int num);
