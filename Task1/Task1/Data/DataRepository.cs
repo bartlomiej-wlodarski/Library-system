@@ -116,5 +116,24 @@ namespace Data
             dataContext.states.BooksInStock[book.Id] = 1;
         }
 
+        public State GetState()
+        {
+            return dataContext.states;
+        }
+
+        public int GetBooksNumber()
+        {
+            return dataContext.books.Books.Count;
+        }
+
+        public int GetClientsNumber()
+        {
+            return dataContext.clients.Clients.Count;
+        }
+
+        public int GetEventsNumber()
+        {
+            return dataContext.events.Events.Count;
+        }
     }
 }

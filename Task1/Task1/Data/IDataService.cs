@@ -24,5 +24,12 @@ namespace Data
         void ReportDamaged(Book book);
         void ReportRepaired(Book book);
         bool CheckIfDamaged(Book book);
+        State GetState();
+
+        int GetBooksNumber();
+        int GetClientsNumber();
+        int GetEventsNumber();
+
+
     }
 }

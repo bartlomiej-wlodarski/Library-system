@@ -37,7 +37,7 @@ namespace Logic
             return repository.GetEvent(num);
         }
 
-        Dictionary<int, Data.Event> GeteventCatalog()
+        Dictionary<int, Data.Event> GetEventCatalog()
         {
             return repository.GetEventCatalog();
         }
@@ -71,6 +71,7 @@ namespace Logic
         {
             repository.EditClient(client);
         }
+
         //events
         void AddEvent(Data.Event newEvent)
         {
