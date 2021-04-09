@@ -6,6 +6,6 @@ namespace Data
 {
     public class EventCatalog
     {
-        public Dictionary<int, Event> Events { get; set; } = new Dictionary<int, Event>();
+        public List<Event> Events { get; set; } = new List<Event>();
     }
 }

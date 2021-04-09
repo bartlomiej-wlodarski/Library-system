@@ -15,11 +15,11 @@ namespace Data
         void EditEvent(Event newEvent);
         void RemoveClient(int num);
         Client GetClient(int num);
-        Dictionary<int, Client> GetClientCatalog();
+        List<Client> GetClientCatalog();
         void AddEvent(Event newEvent);
         void RemoveEvent(int num);
         Event GetEvent(int num);
-        Dictionary<int, Event> GetEventCatalog();
+        List<Event> GetEventCatalog();
         bool CheckAvaiability(Book book);
         void ReportDamaged(Book book);
         void ReportRepaired(Book book);

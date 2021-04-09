@@ -48,7 +48,7 @@ namespace Tests
         [TestMethod]
         public void DataRepositoryGetEventCatalogTest()
         {
-            Dictionary<int, Data.Event> catalog = repository.GetEventCatalog();
+            List<Data.Event> catalog = repository.GetEventCatalog();
 
             Assert.AreEqual(1, repository.GetEvent(1).Id);
             Assert.AreEqual(1, repository.GetEvent(1).Client.Id);

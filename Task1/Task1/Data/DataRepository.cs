@@ -20,12 +20,12 @@ namespace Data
 
         public void AddClient(Client client)
         {
-            dataContext.clients.Clients.Add(client.Id, client);
+            dataContext.clients.Clients.Add(client);
         }
 
         public void AddEvent(Event newEvent)
         {
-            dataContext.events.Events.Add(newEvent.Id, newEvent);
+            dataContext.events.Events.Add(newEvent);
         }
 
         public bool CheckAvaiability(Book book)
@@ -49,16 +49,16 @@ namespace Data
 
         public void EditClient(Client client)
         {
-            dataContext.clients.Clients[client.Id].Name = client.Name;
-            dataContext.clients.Clients[client.Id].Surname = client.Surname;
-            dataContext.clients.Clients[client.Id].Age = client.Age;
+            dataContext.clients.Clients.Find(x => x.Id == client.Id).Name = client.Name;
+            dataContext.clients.Clients.Find(x => x.Id == client.Id).Surname = client.Surname;
+            dataContext.clients.Clients.Find(x => x.Id == client.Id).Age = client.Age;
         }
 
         public void EditEvent(Event newEvent)
         {
-            dataContext.events.Events[newEvent.Id].Client = newEvent.Client;
-            dataContext.events.Events[newEvent.Id].Date = newEvent.Date;
-            dataContext.events.Events[newEvent.Id].State = newEvent.State;
+            dataContext.events.Events.Find(x => x.Id == newEvent.Id).Client = newEvent.Client;
+            dataContext.events.Events.Find(x => x.Id == newEvent.Id).Date = newEvent.Date;
+            dataContext.events.Events.Find(x => x.Id == newEvent.Id).State = newEvent.State;
         }
 
         public Book GetBook(int num)
@@ -73,20 +73,20 @@ namespace Data
 
         public Client GetClient(int num)
         {
-            return dataContext.clients.Clients[num];
+            return dataContext.clients.Clients.Find(x => x.Id == num);
         }
 
-        public Dictionary<int, Client> GetClientCatalog()
+        public List<Client> GetClientCatalog()
         {
             return dataContext.clients.Clients;
         }
 
         public Event GetEvent(int num)
         {
-            return dataContext.events.Events[num];
+            return dataContext.events.Events.Find(x => x.Id == num);
         }
 
-        public Dictionary<int, Event> GetEventCatalog()
+        public List<Event> GetEventCatalog()
         {
             return dataContext.events.Events;
         }
@@ -98,12 +98,12 @@ namespace Data
 
         public void RemoveClient(int num)
         {
-            dataContext.clients.Clients.Remove(num);
+            dataContext.clients.Clients.RemoveAll(x => x.Id == num);
         }
 
         public void RemoveEvent(int num)
         {
-            dataContext.events.Events.Remove(num);
+            dataContext.events.Events.RemoveAll(x => x.Id == num);
         }
 
         public void ReportDamaged(Book book)

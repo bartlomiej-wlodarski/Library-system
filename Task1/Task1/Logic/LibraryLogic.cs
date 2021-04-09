@@ -27,7 +27,7 @@ namespace Logic
             return repository.GetClient(num);
         }
 
-        Dictionary<int, Data.Client> GetClientCatalog()
+        List<Data.Client> GetClientCatalog()
         {
             return repository.GetClientCatalog();
         }
@@ -37,7 +37,7 @@ namespace Logic
             return repository.GetEvent(num);
         }
 
-        Dictionary<int, Data.Event> GetEventCatalog()
+        List<Data.Event> GetEventCatalog()
         {
             return repository.GetEventCatalog();
         }

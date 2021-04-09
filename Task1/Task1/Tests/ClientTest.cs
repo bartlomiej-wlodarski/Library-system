@@ -57,7 +57,7 @@ namespace Tests
         [TestMethod]
         public void DataRepositoryGetClientCatalogTest()
         {
-            Dictionary<int, Data.Client> catalog = repository.GetClientCatalog();
+            List<Data.Client> catalog = repository.GetClientCatalog();
 
             Assert.AreEqual(1, repository.GetClient(1).Id);
             Assert.AreEqual("Bartlomiej", repository.GetClient(1).Name);
