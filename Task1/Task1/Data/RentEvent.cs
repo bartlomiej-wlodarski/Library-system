@@ -6,9 +6,9 @@ namespace Data
 {
     public class RentEvent : Event
     {
-        public RentEvent(int id, Client client, DateTime date, State state) : base(id, client, date, state)
+        public RentEvent(int id, Client client, DateTime date, Book book) : base(id, client, date, book)
         {
-
+            book.State.Rented(date, client);
         }
     }
 }

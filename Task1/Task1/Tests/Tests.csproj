@@ -54,6 +54,8 @@
     <Compile Include="BookTest.cs" />
     <Compile Include="EventTest.cs" />
     <Compile Include="StateTest.cs" />
+    <Compile Include="LogicTest.cs" />
+    <Compile Include="TDataRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

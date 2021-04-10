@@ -2,33 +2,33 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data
+namespace Tests
 {
-    public class DataRepository : IDataService
+    public class TDataRepository : Data.IDataService
     {
-        readonly DataContext dataContext;
+        Data.DataContext dataContext = new Data.DataContext();
 
-        public DataRepository(DataContext context)
+        public TDataRepository(Data.DataContext context)
         {
             this.dataContext = context;
         }
 
-        public void AddBook(Book book)
+        public void AddBook(Data.Book book)
         {
             dataContext.books.Books.Add(book.Id, book);
         }
 
-        public void AddClient(Client client)
+        public void AddClient(Data.Client client)
         {
             dataContext.clients.Clients.Add(client);
         }
 
-        public void AddEvent(Event newEvent)
+        public void AddEvent(Data.Event newEvent)
         {
             dataContext.events.Events.Add(newEvent);
         }
 
-        public bool CheckAvaiability(Book book)
+        public bool CheckAvaiability(Data.Book book)
         {
             if (dataContext.books.Books[book.Id].State.GetState() == 1)
             {
@@ -37,7 +37,7 @@ namespace Data
             return false;
         }
 
-        public bool CheckIfDamaged(Book book)
+        public bool CheckIfDamaged(Data.Book book)
         {
             if (dataContext.books.Books[book.Id].State.GetState() == 2)
             {
@@ -46,7 +46,7 @@ namespace Data
             return false;
         }
 
-        public void EditBook(Book book)
+        public void EditBook(Data.Book book)
         {
             dataContext.books.Books[book.Id].Title = book.Title;
             dataContext.books.Books[book.Id].Author = book.Author;
@@ -55,46 +55,46 @@ namespace Data
             dataContext.books.Books[book.Id].Pages = book.Pages;
         }
 
-        public void EditClient(Client client)
+        public void EditClient(Data.Client client)
         {
             dataContext.clients.Clients.Find(x => x.Id == client.Id).Name = client.Name;
             dataContext.clients.Clients.Find(x => x.Id == client.Id).Surname = client.Surname;
             dataContext.clients.Clients.Find(x => x.Id == client.Id).Age = client.Age;
         }
 
-        public void EditEvent(Event newEvent)
+        public void EditEvent(Data.Event newEvent)
         {
             dataContext.events.Events.Find(x => x.Id == newEvent.Id).Client = newEvent.Client;
             dataContext.events.Events.Find(x => x.Id == newEvent.Id).Date = newEvent.Date;
             dataContext.events.Events.Find(x => x.Id == newEvent.Id).Book = newEvent.Book;
         }
 
-        public Book GetBook(int num)
+        public Data.Book GetBook(int num)
         {
             return dataContext.books.Books[num];
         }
 
-        public Dictionary<int, Book> GetBookCatalog()
+        public Dictionary<int, Data.Book> GetBookCatalog()
         {
             return dataContext.books.Books;
         }
 
-        public Client GetClient(int num)
+        public Data.Client GetClient(int num)
         {
             return dataContext.clients.Clients.Find(x => x.Id == num);
         }
 
-        public List<Client> GetClientCatalog()
+        public List<Data.Client> GetClientCatalog()
         {
             return dataContext.clients.Clients;
         }
 
-        public Event GetEvent(int num)
+        public Data.Event GetEvent(int num)
         {
             return dataContext.events.Events.Find(x => x.Id == num);
         }
 
-        public List<Event> GetEventCatalog()
+        public List<Data.Event> GetEventCatalog()
         {
             return dataContext.events.Events;
         }
@@ -114,17 +114,17 @@ namespace Data
             dataContext.events.Events.RemoveAll(x => x.Id == num);
         }
 
-        public void ReportDamaged(Book book, Client client, DateTime date)
+        public void ReportDamaged(Data.Book book, Data.Client client, DateTime date)
         {
             dataContext.books.Books[book.Id].State.Damaged(date, client);
         }
 
-        public void ReportRepaired(Book book, Client client, DateTime date)
+        public void ReportRepaired(Data.Book book, Data.Client client, DateTime date)
         {
             dataContext.books.Books[book.Id].State.Avaiable(date, client);
         }
 
-        public State GetState()
+        public Data.State GetState()
         {
             return dataContext.states;
         }

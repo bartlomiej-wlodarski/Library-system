@@ -11,6 +11,7 @@ namespace Data
         public int Pages { get; set; }
         public BookGenre Genre { get; set; }
         public DateTime Date_of_publication { get; set; }
+        public State State { get; set; }
 
         public Book(int id, string title, string author, int pages, BookGenre genre, DateTime date_of_publication)
         {
@@ -20,6 +21,7 @@ namespace Data
             Pages = pages;
             Genre = genre;
             Date_of_publication = date_of_publication;
+            State = new State();
         }
     }
 }

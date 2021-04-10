@@ -6,9 +6,9 @@ namespace Data
 {
     public class DamagedEvent : Event
     {
-        public DamagedEvent(int id, Client client, DateTime date, State state) : base(id, client, date, state)
+        public DamagedEvent(int id, Client client, DateTime date, Book book) : base(id, client, date, book)
         {
-
+            book.State.Damaged(date, client);
         }
     }
 }

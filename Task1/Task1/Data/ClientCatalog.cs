@@ -6,7 +6,6 @@ namespace Data
 {
     public class ClientCatalog
     {
-        //public Dictionary<int, Client> Clients { get; set; } = new Dictionary<int, Client>();
         public List<Client> Clients { get; set; } = new List<Client>();
     }
 }

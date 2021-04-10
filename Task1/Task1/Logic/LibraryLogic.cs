@@ -3,110 +3,128 @@ using System.Collections.Generic;
 
 namespace Logic
 {
-    public class LibraryLogic
+    public class LibraryLogic : ILibraryLogic
     {
-        private Data.IDataService repository;
+        private readonly Data.IDataService repository;
 
         public LibraryLogic(Data.IDataService repository)
         {
             this.repository = repository;
         }
         //getters
-        Dictionary<int, Data.Book> GetBookCatalog()
+        public Dictionary<int, Data.Book> GetBookCatalog()
         {
             return repository.GetBookCatalog();
         }
 
-        Data.Book GetBook(int num)
+        public Data.Book GetBook(int num)
         {
             return repository.GetBook(num);
         }
 
-        Data.Client GetClient(int num)
+        public Data.Client GetClient(int num)
         {
             return repository.GetClient(num);
         }
 
-        List<Data.Client> GetClientCatalog()
+        public List<Data.Client> GetClientCatalog()
         {
             return repository.GetClientCatalog();
         }
 
-        Data.Event GetEvent(int num)
+        public Data.Event GetEvent(int num)
         {
             return repository.GetEvent(num);
         }
 
-        List<Data.Event> GetEventCatalog()
+        public List<Data.Event> GetEventCatalog()
         {
             return repository.GetEventCatalog();
         }
         //books
-        void AddBook(Data.Book book)
+        public void AddBook(Data.Book book)
         {
             repository.AddBook(book);
         }
 
-        void RemoveBook(int num)
+        public void RemoveBook(int num)
         {
             repository.RemoveBook(num);
         }
 
-        void EditBook(Data.Book book)
+        public void EditBook(Data.Book book)
         {
             repository.EditBook(book);
         }
         //clients
-        void AddClient(Data.Client client)
+        public void AddClient(Data.Client client)
         {
             repository.AddClient(client);
         }
 
-        void RemoveClient(int num)
+        public void RemoveClient(int num)
         {
             repository.RemoveClient(num);
         }
 
-        void EditClient(Data.Client client)
+        public void EditClient(Data.Client client)
         {
             repository.EditClient(client);
         }
 
         //events
-        void AddEvent(Data.Event newEvent)
+        public void AddEvent(Data.Event newEvent)
         {
             repository.AddEvent(newEvent);
         }
 
-        void RemoveEvent(int num)
+        public void RemoveEvent(int num)
         {
             repository.RemoveEvent(num);
         }
 
-        void EditEvent(Data.Event newEvent)
+        public void EditEvent(Data.Event newEvent)
         {
             repository.EditEvent(newEvent);
         }
 
         //states
-        bool CheckAvaiability(Data.Book book)
+        public bool CheckAvaiability(Data.Book book)
         {
             return repository.CheckAvaiability(book);
         }
 
-        void ReportDamaged(Data.Book book)
+        public void ReportDamaged(Data.Book book, Data.Client client, DateTime date)
         {
-            repository.ReportDamaged(book);
+            repository.ReportDamaged(book, client, date);
         }
 
-        void ReportRepaired(Data.Book book)
+        public void ReportRepaired(Data.Book book, Data.Client client, DateTime date)
         {
-            repository.ReportRepaired(book);
+            repository.ReportRepaired(book, client, date);
         }
 
-        bool CheckIfDamaged(Data.Book book)
+        public bool CheckIfDamaged(Data.Book book)
         {
             return repository.CheckIfDamaged(book);
+        }
+
+        public Data.State GetState()
+        {
+            return repository.GetState();
+        }
+
+        public int GetBooksNumber()
+        {
+            return repository.GetBooksNumber();
+        }
+        public int GetClientsNumber()
+        {
+            return repository.GetClientsNumber();
+        }
+        public int GetEventsNumber()
+        {
+            return repository.GetEventsNumber();
         }
     }
 }

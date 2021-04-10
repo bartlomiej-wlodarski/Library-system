@@ -21,8 +21,8 @@ namespace Data
         Event GetEvent(int num);
         List<Event> GetEventCatalog();
         bool CheckAvaiability(Book book);
-        void ReportDamaged(Book book);
-        void ReportRepaired(Book book);
+        void ReportDamaged(Book book, Client client, DateTime date);
+        void ReportRepaired(Book book, Client client, DateTime date);
         bool CheckIfDamaged(Book book);
         State GetState();
 
