@@ -33,7 +33,7 @@ namespace Tests
             if (dataContext.books.Books[book.Id].State.GetState() == 1)
             {
                 return true;
-            }
+        }
             return false;
         }
 
