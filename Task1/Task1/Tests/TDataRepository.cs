@@ -148,17 +148,15 @@ namespace Tests
 
         public void RentEvent(int id, Data.Client client, DateTime date, Data.Book book)
         {
-            book.State.Rented(date, client);
+            //book.State.Rented(date, client);
+            dataContext.books.Books[book.Id].State.Rented(date, client);
         }
 
         public void ReturnEvent(int id, Data.Client client, DateTime date, Data.Book book)
         {
-            book.State.Avaiable(date, client);
+            //book.State.Avaiable(date, client);
+            dataContext.books.Books[book.Id].State.Avaiable(date, client);
         }
 
-        public void DamagedEvent(int id, Data.Client client, DateTime date, Data.Book book)
-        {
-            book.State.Damaged(date, client);
-        }
     }
 }
