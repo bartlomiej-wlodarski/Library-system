@@ -79,21 +79,40 @@ namespace Tests
             Assert.AreEqual(37, repository.GetEvent(2).Client.Age);
             Assert.AreEqual(date_1, repository.GetEvent(2).Date);
         }
-        /*
+
+        
         [TestMethod]
-
-        public void DataRepositoryReturnEventTest()
-        {
-            repository.AddEvent(new Data.ReturnEvent(3, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), date_1, new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(2018, 10, 20))));
-
-            Assert.AreEqual(1, repository.GetEvent(3).State);
-        }
-
         public void DataRepositoryDamagedEventTest()
         {
-            repository.AddEvent(new Data.DamagedEvent(4, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), date_1, new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(2018, 10, 20))));
+            repository.AddBook(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+            repository.AddClient(new Data.Client(6, "Bartosz", "Wlodarski", 20));
+            repository.DamagedEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
 
-            Assert.AreEqual(2, repository.GetEvent(4).State);
-        }*/
+            Assert.IsTrue(repository.CheckIfDamaged(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+        }
+        
+        [TestMethod]
+        public void DataRepositoryRentEventTest()
+        {
+            repository.AddBook(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+            repository.AddClient(new Data.Client(6, "Bartosz", "Wlodarski", 20));
+            repository.RentEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+
+            Assert.IsFalse(repository.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+        }
+
+        [TestMethod]
+        public void DataRepositoryReturnEventTest()
+        {
+            repository.AddBook(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+            repository.AddClient(new Data.Client(6, "Bartosz", "Wlodarski", 20));
+            repository.RentEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+
+            Assert.IsFalse(repository.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+
+            repository.ReturnEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+
+            Assert.IsTrue(repository.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+        }
     }
 }

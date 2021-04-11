@@ -110,12 +110,12 @@ namespace Tests
 		[TestMethod]
 		public void LibraryLogicRemoveEventTest()
 		{
-			repository.AddEvent(new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(1943, 4, 6), new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6))));
-			repository.AddEvent(new Data.RentEvent(2, new Data.Client(2, "Maciej", "Wlodarczyk", 21), new DateTime(1997, 6, 26), new Data.Book(2, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6))));
+			Library.AddEvent(new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(1943, 4, 6), new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6))));
+			Library.AddEvent(new Data.RentEvent(2, new Data.Client(2, "Maciej", "Wlodarczyk", 21), new DateTime(1997, 6, 26), new Data.Book(2, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6))));
 
 			Assert.AreEqual(2, Library.GetEventsNumber());
 
-			repository.RemoveEvent(1);
+			Library.RemoveEvent(1);
 
 			Assert.AreEqual(1, Library.GetEventsNumber());
 		}
@@ -123,7 +123,7 @@ namespace Tests
 		[TestMethod]
 		public void LibraryLogicGetEventCatalogTest()
 		{
-			repository.AddEvent(new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(1943, 4, 6), new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6))));
+			Library.AddEvent(new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(1943, 4, 6), new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6))));
 			List<Data.Event> catalog = Library.GetEventCatalog();
 
 			Assert.AreEqual(1, Library.GetEvent(1).Id);
@@ -133,7 +133,7 @@ namespace Tests
 			Assert.AreEqual(20, Library.GetEvent(1).Client.Age);
 			Assert.AreEqual(new DateTime(1943, 4, 6), Library.GetEvent(1).Date);
 		}
-		/*
+		
 		[TestMethod]
 		public void LibraryLogicEditEventTest()
 		{
@@ -147,7 +147,6 @@ namespace Tests
 			Assert.AreEqual("Bartosz", Library.GetEvent(1).Client.Name);
 			Assert.AreEqual("Wlodarczyk", Library.GetEvent(1).Client.Surname);
 			Assert.AreEqual(25, Library.GetEvent(1).Client.Age);
-			Assert.AreEqual(0, Library.GetState());
 			Assert.AreEqual(new DateTime(1997, 6, 26), Library.GetEvent(1).Date);
 
 			Library.EditEvent(new Data.RentEvent(2, new Data.Client(2, "Marco", "Murinho", 37), new DateTime(1943, 4, 6), new Data.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6))));
@@ -157,9 +156,8 @@ namespace Tests
 			Assert.AreEqual("Marco", Library.GetEvent(2).Client.Name);
 			Assert.AreEqual("Murinho", Library.GetEvent(2).Client.Surname);
 			Assert.AreEqual(37, Library.GetEvent(2).Client.Age);
-			Assert.AreEqual(0, Library.GetState());
 			Assert.AreEqual(new DateTime(1943, 4, 6), Library.GetEvent(2).Date);
-		}*/
+		}
 		[TestMethod]
 		public void LibraryLogicAddBookTest()
 		{
@@ -203,7 +201,7 @@ namespace Tests
 		public void LibraryLogicGetBookCatalogTest()
 		{
 			Library.AddBook(new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6)));
-			Dictionary<int, Data.Book> catalog = repository.GetBookCatalog();
+			Dictionary<int, Data.Book> catalog = Library.GetBookCatalog();
 
 			Assert.AreEqual(1, Library.GetBook(1).Id);
 			Assert.AreEqual("Maly Ksiaze", Library.GetBook(1).Title);
@@ -231,7 +229,6 @@ namespace Tests
 		public void DataRepositoryCheckAvailabilityTest()
 		{
 			Library.AddBook(new Data.Book(4, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
-			Library.AddEvent(new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(4, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
 
 			Assert.IsTrue(Library.CheckAvaiability(new Data.Book(4, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
 		}
@@ -250,6 +247,7 @@ namespace Tests
 		{
 			Library.AddBook(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
 			Library.ReportDamaged(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1), new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(2018, 10, 20));
+			Assert.IsTrue(Library.CheckIfDamaged(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
 			Library.ReportRepaired(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1), new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(2018, 10, 20));
 
 			Assert.IsTrue(Library.CheckAvaiability(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));

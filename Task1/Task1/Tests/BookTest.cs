@@ -26,7 +26,7 @@ namespace Tests
 
         
         [TestMethod]
-        public void DataRepositoryAddMovieTest()
+        public void DataRepositoryAddBookTest()
         {
             Assert.AreEqual(3, repository.GetBooksNumber());
 
@@ -38,7 +38,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void DataRepositoryRemoveMovieTest()
+        public void DataRepositoryRemoveBookTest()
         {
             Assert.AreEqual(3, repository.GetBooksNumber());
 

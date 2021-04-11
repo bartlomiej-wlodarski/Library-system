@@ -25,11 +25,11 @@ namespace Tests
             repository.AddBook(new Data.Book(3, "Chrobot", "Tomasz Michniewicz", 320, Data.BookGenre.Personal, date_3));
         }
 
+
         [TestMethod]
         public void DataRepositoryCheckAvailabilityTest()
         {
             repository.AddBook(new Data.Book(4, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
-            repository.AddEvent(new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(4, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
 
             Assert.IsTrue(repository.CheckAvaiability(new Data.Book(4, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
         }
@@ -48,6 +48,7 @@ namespace Tests
         {
             repository.AddBook(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
             repository.ReportDamaged(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1), new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(2018, 10, 20));
+            Assert.IsTrue(repository.CheckIfDamaged(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
             repository.ReportRepaired(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1), new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(2018, 10, 20));
 
             Assert.IsTrue(repository.CheckAvaiability(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
