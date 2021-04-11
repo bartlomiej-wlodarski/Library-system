@@ -126,5 +126,20 @@ namespace Logic
         {
             return repository.GetEventsNumber();
         }
+
+        public void RentEvent(int id, Data.Client client, DateTime date, Data.Book book)
+        {
+            book.State.Rented(date, client);
+        }
+
+        public void ReturnEvent(int id, Data.Client client, DateTime date, Data.Book book)
+        {
+            book.State.Avaiable(date, client);
+        }
+
+        public void DamagedEvent(int id, Data.Client client, DateTime date, Data.Book book)
+        {
+            book.State.Damaged(date, client);
+        }
     }
 }

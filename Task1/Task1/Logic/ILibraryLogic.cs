@@ -30,5 +30,11 @@ namespace Logic
         int GetBooksNumber();
         int GetClientsNumber();
         int GetEventsNumber();
+
+        void RentEvent(int id, Data.Client client, DateTime date, Data.Book book);
+
+        void ReturnEvent(int id, Data.Client client, DateTime date, Data.Book book);
+
+        void DamagedEvent(int id, Data.Client client, DateTime date, Data.Book book);
     }
 }

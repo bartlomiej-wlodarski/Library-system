@@ -30,6 +30,12 @@ namespace Data
         int GetClientsNumber();
         int GetEventsNumber();
 
+        void RentEvent(int id, Client client, DateTime date, Book book);
+
+        void ReturnEvent(int id, Client client, DateTime date, Book book);
+
+        void DamagedEvent(int id, Client client, DateTime date, Book book);
+
 
     }
 }

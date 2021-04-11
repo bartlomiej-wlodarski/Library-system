@@ -143,5 +143,20 @@ namespace Data
         {
             return dataContext.events.Events.Count;
         }
+
+        public void RentEvent(int id, Client client, DateTime date, Book book)
+        {
+            book.State.Rented(date, client);
+        }
+
+        public void ReturnEvent(int id, Client client, DateTime date, Book book)
+        {
+            book.State.Avaiable(date, client);
+        }
+
+        public void DamagedEvent(int id, Client client, DateTime date, Book book)
+        {
+            book.State.Damaged(date, client);
+        }
     }
 }

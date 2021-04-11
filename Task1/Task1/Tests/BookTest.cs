@@ -63,7 +63,7 @@ namespace Tests
         [TestMethod]
         public void DataRepositoryGetBookCatalogTest()
         {
-            //Dictionary<int, Data.Book> catalog = repository.GetBookCatalog();
+            Dictionary<int, Data.Book> catalog = repository.GetBookCatalog();
 
             Assert.AreEqual(1, repository.GetBook(1).Id);
             Assert.AreEqual("Maly Ksiaze", repository.GetBook(1).Title);

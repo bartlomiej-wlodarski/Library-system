@@ -44,7 +44,7 @@ namespace Tests
 
             Assert.AreEqual(2, repository.GetEventsNumber());
         }
-
+        
         [TestMethod]
         public void DataRepositoryGetEventCatalogTest()
         {
@@ -55,8 +55,6 @@ namespace Tests
             Assert.AreEqual("Bartlomiej", repository.GetEvent(1).Client.Name);
             Assert.AreEqual("Wlodarski", repository.GetEvent(1).Client.Surname);
             Assert.AreEqual(20, repository.GetEvent(1).Client.Age);
-            //Assert.AreEqual(repository.GetState().Books, repository.GetEvent(1).State.Books);
-            //Assert.AreEqual(repository.GetState().BooksInStock, repository.GetEvent(1).State.BooksInStock);
             Assert.AreEqual(date_1, repository.GetEvent(1).Date);
         }
 
@@ -70,8 +68,6 @@ namespace Tests
             Assert.AreEqual("Bartosz", repository.GetEvent(1).Client.Name);
             Assert.AreEqual("Wlodarczyk", repository.GetEvent(1).Client.Surname);
             Assert.AreEqual(25, repository.GetEvent(1).Client.Age);
-            //Assert.AreEqual(repository.GetState().Books, repository.GetEvent(1).State.Books);
-            //Assert.AreEqual(repository.GetState().BooksInStock, repository.GetEvent(1).State.BooksInStock);
             Assert.AreEqual(date_2, repository.GetEvent(1).Date);
 
             repository.EditEvent(new Data.RentEvent(2, new Data.Client(2, "Marco", "Murinho", 37), date_1, new Data.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
@@ -81,10 +77,23 @@ namespace Tests
             Assert.AreEqual("Marco", repository.GetEvent(2).Client.Name);
             Assert.AreEqual("Murinho", repository.GetEvent(2).Client.Surname);
             Assert.AreEqual(37, repository.GetEvent(2).Client.Age);
-            //Assert.AreEqual(repository.GetState().Books, repository.GetEvent(2).State.Books);
-            //Assert.AreEqual(repository.GetState().BooksInStock, repository.GetEvent(2).State.BooksInStock);
             Assert.AreEqual(date_1, repository.GetEvent(2).Date);
         }
+        /*
+        [TestMethod]
 
+        public void DataRepositoryReturnEventTest()
+        {
+            repository.AddEvent(new Data.ReturnEvent(3, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), date_1, new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(2018, 10, 20))));
+
+            Assert.AreEqual(1, repository.GetEvent(3).State);
+        }
+
+        public void DataRepositoryDamagedEventTest()
+        {
+            repository.AddEvent(new Data.DamagedEvent(4, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), date_1, new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(2018, 10, 20))));
+
+            Assert.AreEqual(2, repository.GetEvent(4).State);
+        }*/
     }
 }
