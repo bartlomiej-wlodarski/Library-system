@@ -41,7 +41,6 @@ namespace Data
         {
             return stateValue;
         }
-
         public DateTime GetDate()
         {
             return date;

@@ -6,6 +6,7 @@ namespace Data
     public interface IDataService
     {
         void AddBook(Book book);
+        void AddBook(List<Book> bookList);
         void RemoveBook(int num);
         Book GetBook(int num);
         Dictionary<int, Book> GetBookCatalog();
@@ -24,7 +25,6 @@ namespace Data
         void ReportDamaged(Book book, Client client, DateTime date);
         void ReportRepaired(Book book, Client client, DateTime date);
         bool CheckIfDamaged(Book book);
-        State GetState();
 
         int GetBooksNumber();
         int GetClientsNumber();

@@ -25,7 +25,6 @@ namespace Logic
         void ReportDamaged(Data.Book book, Data.Client client, DateTime date);
         void ReportRepaired(Data.Book book, Data.Client client, DateTime date);
         bool CheckIfDamaged(Data.Book book);
-        Data.State GetState();
 
         int GetBooksNumber();
         int GetClientsNumber();

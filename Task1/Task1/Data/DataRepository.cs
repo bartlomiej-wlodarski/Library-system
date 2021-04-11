@@ -18,6 +18,14 @@ namespace Data
             dataContext.books.Books.Add(book.Id, book);
         }
 
+        public void AddBook(List<Book> bookList)
+        {
+            foreach (Book book in bookList)
+            {
+                AddBook(book);
+            }
+        }
+
         public void AddClient(Client client)
         {
             dataContext.clients.Clients.Add(client);
@@ -122,11 +130,6 @@ namespace Data
         public void ReportRepaired(Book book, Client client, DateTime date)
         {
             dataContext.books.Books[book.Id].State.Avaiable(date, client);
-        }
-
-        public State GetState()
-        {
-            return dataContext.states;
         }
 
         public int GetBooksNumber()

@@ -46,6 +46,13 @@ namespace Logic
         {
             repository.AddBook(book);
         }
+        public void AddBook(List<Data.Book> bookList)
+        {
+            foreach (Data.Book book in bookList)
+            {
+                repository.AddBook(book);
+            }
+        }
 
         public void RemoveBook(int num)
         {
@@ -107,11 +114,6 @@ namespace Logic
         public bool CheckIfDamaged(Data.Book book)
         {
             return repository.CheckIfDamaged(book);
-        }
-
-        public Data.State GetState()
-        {
-            return repository.GetState();
         }
 
         public int GetBooksNumber()

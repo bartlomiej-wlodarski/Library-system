@@ -38,6 +38,18 @@ namespace Tests
         }
 
         [TestMethod]
+        public void DataRepositoryAddBookListTest()
+        {
+            List<Data.Book> listOfBooks = new List<Data.Book>();
+            listOfBooks.Add(new Data.Book(4, "Nie ma", "Mariusz Szczygiel", 332, Data.BookGenre.Personal, new DateTime(2018, 6, 12)));
+            listOfBooks.Add(new Data.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Data.BookGenre.Horror, new DateTime(2017, 11, 20)));
+            listOfBooks.Add(new Data.Book(6, "Krol", "Szczepan Twardoch", 350, Data.BookGenre.Horror, new DateTime(2016, 12, 24)));
+            repository.AddBook(listOfBooks);
+
+            Assert.AreEqual(6, repository.GetBooksNumber());
+        }
+
+        [TestMethod]
         public void DataRepositoryRemoveBookTest()
         {
             Assert.AreEqual(3, repository.GetBooksNumber());
