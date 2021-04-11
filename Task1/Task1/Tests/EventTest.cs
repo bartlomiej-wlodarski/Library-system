@@ -48,8 +48,6 @@ namespace Tests
         [TestMethod]
         public void DataRepositoryGetEventCatalogTest()
         {
-            List<Data.Event> catalog = repository.GetEventCatalog();
-
             Assert.AreEqual(1, repository.GetEvent(1).Id);
             Assert.AreEqual(1, repository.GetEvent(1).Client.Id);
             Assert.AreEqual("Bartlomiej", repository.GetEvent(1).Client.Name);
@@ -104,6 +102,13 @@ namespace Tests
             repository.ReturnEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
 
             Assert.IsTrue(repository.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+        }
+
+        [TestMethod]
+        public void DataRepositoryCatalogTest()
+        {
+            List<Data.Event> catalog = repository.GetEventCatalog();
+            Assert.AreEqual(catalog.Find(x => x.Id == 1), repository.GetEvent(1));
         }
     }
 }

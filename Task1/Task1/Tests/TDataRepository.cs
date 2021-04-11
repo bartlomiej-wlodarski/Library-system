@@ -6,7 +6,7 @@ namespace Tests
 {
     public class TDataRepository : Data.IDataService
     {
-        Data.DataContext dataContext = new Data.DataContext();
+        readonly Data.DataContext dataContext = new Data.DataContext();
 
         public TDataRepository(Data.DataContext context)
         {

@@ -40,10 +40,12 @@ namespace Tests
         [TestMethod]
         public void DataRepositoryAddBookListTest()
         {
-            List<Data.Book> listOfBooks = new List<Data.Book>();
-            listOfBooks.Add(new Data.Book(4, "Nie ma", "Mariusz Szczygiel", 332, Data.BookGenre.Personal, new DateTime(2018, 6, 12)));
-            listOfBooks.Add(new Data.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Data.BookGenre.Horror, new DateTime(2017, 11, 20)));
-            listOfBooks.Add(new Data.Book(6, "Krol", "Szczepan Twardoch", 350, Data.BookGenre.Horror, new DateTime(2016, 12, 24)));
+            List<Data.Book> listOfBooks = new List<Data.Book>
+            {
+                new Data.Book(4, "Nie ma", "Mariusz Szczygiel", 332, Data.BookGenre.Personal, new DateTime(2018, 6, 12)),
+                new Data.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Data.BookGenre.Horror, new DateTime(2017, 11, 20)),
+                new Data.Book(6, "Krol", "Szczepan Twardoch", 350, Data.BookGenre.Horror, new DateTime(2016, 12, 24))
+            };
             repository.AddBook(listOfBooks);
 
             Assert.AreEqual(6, repository.GetBooksNumber());
@@ -75,8 +77,6 @@ namespace Tests
         [TestMethod]
         public void DataRepositoryGetBookCatalogTest()
         {
-            Dictionary<int, Data.Book> catalog = repository.GetBookCatalog();
-
             Assert.AreEqual(1, repository.GetBook(1).Id);
             Assert.AreEqual("Maly Ksiaze", repository.GetBook(1).Title);
             Assert.AreEqual("Saint-Exupery", repository.GetBook(1).Author);
@@ -96,6 +96,13 @@ namespace Tests
             Assert.AreEqual(350, repository.GetBook(1).Pages);
             Assert.AreEqual(Data.BookGenre.Horror, repository.GetBook(1).Genre);
             Assert.AreEqual(new DateTime(2016, 12, 24), repository.GetBook(1).Date_of_publication);
+        }
+
+        [TestMethod]
+        public void DataRepositoryCatalogTest()
+        {
+            Dictionary<int, Data.Book> catalog = repository.GetBookCatalog();
+            Assert.IsTrue(catalog.ContainsValue(repository.GetBook(1)));
         }
     }
 }

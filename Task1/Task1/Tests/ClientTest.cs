@@ -58,8 +58,6 @@ namespace Tests
         [TestMethod]
         public void DataRepositoryGetClientCatalogTest()
         {
-            List<Data.Client> catalog = repository.GetClientCatalog();
-
             Assert.AreEqual(1, repository.GetClient(1).Id);
             Assert.AreEqual("Bartlomiej", repository.GetClient(1).Name);
             Assert.AreEqual("Wlodarski", repository.GetClient(1).Surname);
@@ -76,6 +74,13 @@ namespace Tests
             Assert.AreEqual("Bartlomiej", repository.GetClient(1).Name);
             Assert.AreEqual("Wlodarczyk", repository.GetClient(1).Surname);
             Assert.AreEqual(21, repository.GetClient(1).Age);
+        }
+
+        [TestMethod]
+        public void DataRepositoryCatalogTest()
+        {
+            List<Data.Client> catalog = repository.GetClientCatalog();
+            Assert.AreEqual(catalog.Find(x => x.Id == 1), repository.GetClient(1));
         }
     }
 }

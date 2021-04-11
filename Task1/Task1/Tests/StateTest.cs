@@ -10,9 +10,9 @@ namespace Tests
         private Data.DataContext context;
         private Data.IDataService repository;
 
-        DateTime date_1 = new DateTime(1943, 4, 6);
-        DateTime date_2 = new DateTime(1997, 6, 26);
-        DateTime date_3 = new DateTime(2018, 10, 20);
+        readonly DateTime date_1 = new DateTime(1943, 4, 6);
+        readonly DateTime date_2 = new DateTime(1997, 6, 26);
+        readonly DateTime date_3 = new DateTime(2018, 10, 20);
 
         [TestInitialize]
         public void Initialize()

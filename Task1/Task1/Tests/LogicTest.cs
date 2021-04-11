@@ -9,10 +9,7 @@ namespace Tests
 	{
 		private Logic.ILibraryLogic Library;
 		private Data.IDataService repository;
-
-		DateTime date_1 = new DateTime(1943, 4, 6);
-		DateTime date_2 = new DateTime(1997, 6, 26);
-		DateTime date_3 = new DateTime(2018, 10, 20);
+        readonly DateTime date_1 = new DateTime(1943, 4, 6);
 
 		[TestInitialize]
 		public void Initialize()
@@ -76,7 +73,6 @@ namespace Tests
 		public void LibraryLogicGetClientCatalogTest()
 		{
 			Library.AddClient(new Data.Client(1, "Bartlomiej", "Wlodarski", 20));
-			List<Data.Client> catalog = Library.GetClientCatalog();
 
 			Assert.AreEqual(1, Library.GetClient(1).Id);
 			Assert.AreEqual("Bartlomiej", Library.GetClient(1).Name);
@@ -124,7 +120,6 @@ namespace Tests
 		public void LibraryLogicGetEventCatalogTest()
 		{
 			Library.AddEvent(new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(1943, 4, 6), new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6))));
-			List<Data.Event> catalog = Library.GetEventCatalog();
 
 			Assert.AreEqual(1, Library.GetEvent(1).Id);
 			Assert.AreEqual(1, Library.GetEvent(1).Client.Id);
@@ -201,7 +196,6 @@ namespace Tests
 		public void LibraryLogicGetBookCatalogTest()
 		{
 			Library.AddBook(new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, new DateTime(1943, 4, 6)));
-			Dictionary<int, Data.Book> catalog = Library.GetBookCatalog();
 
 			Assert.AreEqual(1, Library.GetBook(1).Id);
 			Assert.AreEqual("Maly Ksiaze", Library.GetBook(1).Title);
@@ -276,6 +270,5 @@ namespace Tests
 
 			Assert.IsTrue(Library.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
 		}
-
 	}
 }
