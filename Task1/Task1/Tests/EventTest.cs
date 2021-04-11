@@ -80,16 +80,7 @@ namespace Tests
             Assert.AreEqual(date_1, repository.GetEvent(2).Date);
         }
 
-        
-        [TestMethod]
-        public void DataRepositoryDamagedEventTest()
-        {
-            repository.AddBook(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
-            repository.AddClient(new Data.Client(6, "Bartosz", "Wlodarski", 20));
-            repository.DamagedEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
-
-            Assert.IsTrue(repository.CheckIfDamaged(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
-        }
+       
         
         [TestMethod]
         public void DataRepositoryRentEventTest()

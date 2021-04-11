@@ -253,5 +253,29 @@ namespace Tests
 			Assert.IsTrue(Library.CheckAvaiability(new Data.Book(5, "Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
 		}
 
+		[TestMethod]
+		public void DataRepositoryRentEventTest()
+		{
+			Library.AddBook(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+			Library.AddClient(new Data.Client(6, "Bartosz", "Wlodarski", 20));
+			Library.RentEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+
+			Assert.IsFalse(Library.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+		}
+
+		[TestMethod]
+		public void DataRepositoryReturnEventTest()
+		{
+			Library.AddBook(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+			Library.AddClient(new Data.Client(6, "Bartosz", "Wlodarski", 20));
+			Library.RentEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+
+			Assert.IsFalse(Library.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+
+			Library.ReturnEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+
+			Assert.IsTrue(Library.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+		}
+
 	}
 }

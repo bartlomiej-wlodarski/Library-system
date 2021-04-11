@@ -35,6 +35,5 @@ namespace Logic
 
         void ReturnEvent(int id, Data.Client client, DateTime date, Data.Book book);
 
-        void DamagedEvent(int id, Data.Client client, DateTime date, Data.Book book);
     }
 }

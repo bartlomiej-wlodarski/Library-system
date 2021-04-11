@@ -34,7 +34,6 @@ namespace Data
 
         void ReturnEvent(int id, Client client, DateTime date, Book book);
 
-        void DamagedEvent(int id, Client client, DateTime date, Book book);
 
 
     }

@@ -11,6 +11,7 @@ namespace Logic
         {
             this.repository = repository;
         }
+
         //getters
         public Dictionary<int, Data.Book> GetBookCatalog()
         {
@@ -129,17 +130,13 @@ namespace Logic
 
         public void RentEvent(int id, Data.Client client, DateTime date, Data.Book book)
         {
-            book.State.Rented(date, client);
+            repository.RentEvent(id, client, date, book);
         }
 
         public void ReturnEvent(int id, Data.Client client, DateTime date, Data.Book book)
         {
-            book.State.Avaiable(date, client);
+            repository.ReturnEvent(id, client, date, book);
         }
 
-        public void DamagedEvent(int id, Data.Client client, DateTime date, Data.Book book)
-        {
-            book.State.Damaged(date, client);
-        }
     }
 }
