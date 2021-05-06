@@ -10,6 +10,7 @@ namespace Logic
         public LibraryLogic(Data.IDataService repository)
         {
             this.repository = repository;
+            //this.repository = new Data.DataRepository(new Data.DataContext());
         }
 
         //getters
