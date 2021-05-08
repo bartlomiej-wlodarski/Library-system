@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 namespace Library.GUI.Views
 {
     /// <summary>
-    /// Interaction logic for BookCatalogView.xaml
+    /// Interaction logic for BookView.xaml
     /// </summary>
     public partial class BookView : UserControl
     {

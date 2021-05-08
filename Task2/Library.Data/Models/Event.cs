@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Data
 {
     public abstract class Event
     {
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
         public Client Client { get; set; }
         public DateTime Date { get; set; }
         //public State State { get; set; }
