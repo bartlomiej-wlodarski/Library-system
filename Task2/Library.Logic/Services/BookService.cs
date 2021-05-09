@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Library.Logic.Services
 {
-    class BookService
+    public class BookService
     {
         private readonly LibraryContext context;
 

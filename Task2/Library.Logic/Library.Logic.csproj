@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="OldServices%28probbly incorrect%29\**" />
+    <EmbeddedResource Remove="OldServices%28probbly incorrect%29\**" />
+    <None Remove="OldServices%28probbly incorrect%29\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Library.Data\Library.Data.csproj" />
   </ItemGroup>
 

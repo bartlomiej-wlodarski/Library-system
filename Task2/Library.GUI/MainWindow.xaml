@@ -8,7 +8,36 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <StackPanel>
-            <Button Content="Click Me"/>
+            <Button x:Name="btnAddClient" Content="Add Client" Width="80" HorizontalAlignment="Right" Margin="10">
+                
+            </Button>
+            <ListView ItemsSource="{Binding Clients}">
+                <ListView.View>
+                    <GridView>
+                        
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button x:Name="btnAddBook" Content="Add Book" Width="80" HorizontalAlignment="Right" Margin="10">
+                
+            </Button>
+            <ListView ItemsSource="{Binding Books}">
+                <ListView.View>
+                    <GridView>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button x:Name="btnAddEvent" Content="Add Event" Width="80" HorizontalAlignment="Right" Margin="10">
+
+            </Button>
+            <ListView ItemsSource="{Binding Events}">
+                <ListView.View>
+                    <GridView>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </StackPanel>
     </Grid>
 </Window>
