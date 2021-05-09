@@ -54,5 +54,10 @@ namespace Library.Logic.Services
                 context.SaveChanges();
             }
         }
+
+        public int GetEventsNumber()
+        {
+            return context.Events.Count();
+        }
     }
 }

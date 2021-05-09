@@ -104,5 +104,10 @@ namespace Library.Logic.Services
         {
             context.Books.FirstOrDefault(x => x.Id == book.Id).State.Avaiable(date, client);
         }
+
+        public int GetBooksNumber()
+        {
+            return context.Books.Count();
+        }
     }
 }

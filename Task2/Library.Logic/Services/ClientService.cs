@@ -60,5 +60,10 @@ namespace Library.Logic.Services
         {
             return context.Clients.FirstOrDefault(x => x.Id == num);
         }
+
+        public int GetClientsNumber()
+        {
+            return context.Clients.Count();
+        }
     }
 }
