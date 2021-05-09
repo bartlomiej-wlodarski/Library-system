@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <StackPanel RenderTransformOrigin="0.598,0.626" Margin="94,72,-94,-72" Grid.RowSpan="2">
             <Button x:Name="btnAddClient" Content="Add Client" Width="80" HorizontalAlignment="Left" Margin="10" Command="{Binding UpdateViewCommand}" CommandParameter="Clients">
-                Manage Clients
+                
             </Button>
             <ListView ItemsSource="{Binding Clients}">
                 <ListView.View>

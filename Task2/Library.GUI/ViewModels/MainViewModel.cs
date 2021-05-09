@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Library.GUI.Commands;
+using Library.UI.ViewModels;
 
 namespace Library.GUI.ViewModels
 {
-    class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel
 
     {
         private BaseViewModel _selectedViewModel;
