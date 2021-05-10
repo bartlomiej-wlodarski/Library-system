@@ -85,7 +85,7 @@ namespace Library.LogicTests
             Assert.AreEqual(25, service.GetEvent(1).Client.Age);
             Assert.AreEqual(date_2, service.GetEvent(1).Date);
 
-            service.EditEvent(new Data.RentEvent(2, new Data.Client(2, "Marco", "Murinho", 37), date_1, new Data.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+            service.EditEvent(new Data.DamagedEvent(2, new Data.Client(2, "Marco", "Murinho", 37), date_1, new Data.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
 
             Assert.AreEqual(2, service.GetEvent(2).Id);
             Assert.AreEqual(2, service.GetEvent(2).Client.Id);
