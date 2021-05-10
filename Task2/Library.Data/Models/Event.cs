@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Data
 {
-    public abstract class Event
+    public class Event
     {
         [Key] public int Id { get; set; }
         public Client Client { get; set; }
@@ -12,12 +12,17 @@ namespace Library.Data
         //public State State { get; set; }
         public Book Book { get; set; }
 
-        protected Event(int id, Client client, DateTime date, Book book)
+        public Event(int id, Client client, DateTime date, Book book)
         {
             Id = id;
             Client = client;
             Date = date;
             Book = book;
+        }
+
+        public Event()
+        {
+
         }
     }
 }

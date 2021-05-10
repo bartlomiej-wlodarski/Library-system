@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Library.Data
 {
     public class State
     {
+        [Key] public int Id { get; set; }
         private int stateValue;
         private DateTime date;
         private Client client;
 
-        public State()
+        public State(int id)
         {
             this.stateValue = 1;
             this.date = DateTime.Now;
             this.client = new Client(0, "new_book", "new_book", 0);
+            this.Id = id;
         }
 
         public void Damaged(DateTime date, Client client)

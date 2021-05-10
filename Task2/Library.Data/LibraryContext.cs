@@ -4,14 +4,15 @@ namespace Library.Data
 {
     public class LibraryContext : DbContext
     {
-        //public virtual DbSet<BookCatalog> BookCatalogs { get; set; }
         public virtual DbSet<Book> Books { get; set; }
         //public virtual DbSet<State> States { get; set; }
         public virtual DbSet<Event> Events { get; set; }
-        //public virtual DbSet<RentEvent> RentEvents { get; set; }
-        //public virtual DbSet<ReturnEvent> ReturnEvents { get; set; }
-        //public virtual DbSet<DamagedEvent> DamagedEvents { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

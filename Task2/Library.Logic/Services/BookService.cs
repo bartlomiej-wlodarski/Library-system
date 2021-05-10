@@ -17,7 +17,8 @@ namespace Library.Logic.Services
 
         public void AddBook(Book book)
         {
-            context.Books.Add(book);
+            context.Set<Book>().Add(book);
+            context.SaveChanges();
         }
 
         public void AddBook(List<Book> books)
@@ -26,6 +27,7 @@ namespace Library.Logic.Services
             {
                 AddBook(book);
             }
+            context.SaveChanges();
         }
 
         public bool CheckAvaiability(Book book)
@@ -53,7 +55,7 @@ namespace Library.Logic.Services
 
         public void EditBook(Book book)
         {
-            Book _book = context.Books.FirstOrDefault(x => x.Id.Equals(book.Id));
+            Book _book = context.Set<Book>().FirstOrDefault(x => x.Id.Equals(book.Id));
 
             if (_book != null)
             {
@@ -69,45 +71,45 @@ namespace Library.Logic.Services
 
         public IEnumerable<Book> GetBookCatalog()
         {
-            return context.Books;
+            return context.Set<Book>();
         }
 
         public void RemoveBook(int num)
         {
-            Book book = context.Books.FirstOrDefault(x => x.Id.Equals(num));
+            Book book = context.Set<Book>().FirstOrDefault(x => x.Id.Equals(num));
 
             if (book != null)
             {
-                context.Books.Remove(book);
+                context.Set<Book>().Remove(book);
                 context.SaveChanges();
             }
         }
 
         public void ReportDamaged(Book book, Client client, DateTime date)
         {
-            context.Books.FirstOrDefault(x => x.Id == book.Id).State.Damaged(date, client);
+            context.Set<Book>().FirstOrDefault(x => x.Id == book.Id).State.Damaged(date, client);
             context.SaveChanges();
         }
 
         public void ReportRepaired(Book book, Client client, DateTime date)
         {
-            context.Books.FirstOrDefault(x => x.Id == book.Id).State.Avaiable(date, client);
+            context.Set<Book>().FirstOrDefault(x => x.Id == book.Id).State.Avaiable(date, client);
             context.SaveChanges();
         }
 
         public void RentEvent(int id, Client client, DateTime date, Book book)
         {
-            context.Books.FirstOrDefault(x => x.Id == book.Id).State.Rented(date, client);
+            context.Set<Book>().FirstOrDefault(x => x.Id == book.Id).State.Rented(date, client);
         }
 
         public void ReturnEvent(int id, Client client, DateTime date, Book book)
         {
-            context.Books.FirstOrDefault(x => x.Id == book.Id).State.Avaiable(date, client);
+            context.Set<Book>().FirstOrDefault(x => x.Id == book.Id).State.Avaiable(date, client);
         }
 
         public int GetBooksNumber()
         {
-            return context.Books.Count();
+            return context.Set<Book>().Count();
         }
     }
 }

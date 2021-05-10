@@ -17,12 +17,13 @@ namespace Library.Logic.Services
 
         public void AddEvent(Event newEvent)
         {
-            context.Events.Add(newEvent);
+            context.Set<Event>().Add(newEvent);
+            context.SaveChanges();
         }
 
         public void EditEvent(Event newEvent)
         {
-            Event @event = context.Events.FirstOrDefault(x => x.Id.Equals(newEvent.Id));
+            Event @event = context.Set<Event>().FirstOrDefault(x => x.Id.Equals(newEvent.Id));
 
             if (@event != null)
             {
@@ -41,23 +42,23 @@ namespace Library.Logic.Services
 
         public IEnumerable<Event> GetEventCatalog()
         {
-            return context.Events;
+            return context.Set<Event>();
         }
 
         public void RemoveEvent(int num)
         {
-            Event @event = context.Events.FirstOrDefault(x => x.Id.Equals(num));
+            Event @event = context.Set<Event>().FirstOrDefault(x => x.Id.Equals(num));
 
             if (@event != null)
             {
-                context.Events.Remove(@event);
+                context.Set<Event>().Remove(@event);
                 context.SaveChanges();
             }
         }
 
         public int GetEventsNumber()
         {
-            return context.Events.Count();
+            return context.Set<Event>().Count();
         }
     }
 }

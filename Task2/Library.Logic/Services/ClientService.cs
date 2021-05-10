@@ -17,18 +17,18 @@ namespace Library.Logic.Services
 
         public IEnumerable<Client> GetClients()
         {
-            return context.Clients;
+            return context.Set<Client>();
         }
 
         public void AddClient(Client client)
         {
-            context.Clients.Add(client);
+            context.Set<Client>().Add(client);
             context.SaveChanges();
         }
 
         public void EditClient(Client client)
         {
-            Client _client = context.Clients.FirstOrDefault(x => x.Id.Equals(client.Id));
+            Client _client = context.Set<Client>().FirstOrDefault(x => x.Id.Equals(client.Id));
 
             if (_client != null)
             {
@@ -42,28 +42,28 @@ namespace Library.Logic.Services
 
         public void RemoveClient(int num)
         {
-            Client client = context.Clients.FirstOrDefault(x => x.Id.Equals(num));
+            Client client = context.Set<Client>().FirstOrDefault(x => x.Id.Equals(num));
 
             if (client != null)
             {
-                context.Clients.Remove(client);
+                context.Set<Client>().Remove(client);
                 context.SaveChanges();
             }
         }
 
         public IEnumerable<Client> GetClientCatalog()
         {
-            return context.Clients;
+            return context.Set<Client>();
         }
 
         public Client GetClient(int num)
         {
-            return context.Clients.FirstOrDefault(x => x.Id == num);
+            return context.Set<Client>().FirstOrDefault(x => x.Id == num);
         }
 
         public int GetClientsNumber()
         {
-            return context.Clients.Count();
+            return context.Set<Client>().Count();
         }
     }
 }

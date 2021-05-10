@@ -22,7 +22,7 @@ namespace Library.Data
             Pages = pages;
             Genre = genre;
             Date_of_publication = date_of_publication;
-            State = new State();
+            State = new State(0);
         }
     }
 }
