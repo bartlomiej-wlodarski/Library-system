@@ -32,7 +32,7 @@ namespace Library.Logic.Services
 
         public bool CheckAvaiability(Book book)
         {
-            if (context.Books.FirstOrDefault(x => x.Id == book.Id).State.GetState() == 1)
+            if (context.Set<Book>().FirstOrDefault(x => x.Id == book.Id).State.GetState() == 1)
             {
                 return true;
             }
@@ -46,7 +46,7 @@ namespace Library.Logic.Services
 
         public bool CheckIfDamaged(Book book)
         {
-            if (context.Books.FirstOrDefault(x => x.Id == book.Id).State.GetState() == 2)
+            if (context.Set<Book>().FirstOrDefault(x => x.Id == book.Id).State.GetState() == 2)
             {
                 return true;
             }
