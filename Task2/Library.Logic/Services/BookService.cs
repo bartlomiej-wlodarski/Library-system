@@ -1,4 +1,4 @@
-﻿using Library.Data;
+﻿using Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ namespace Library.Logic.Services
 {
     public class BookService
     {
-        private readonly LibraryContext context;
+        private readonly LibraryDataContext context;
 
         public BookService(LibraryContext context)
         {

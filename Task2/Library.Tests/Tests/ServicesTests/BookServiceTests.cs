@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Library.Data;
+using Data;
 using Library.Logic;
 using Library.Logic.Services;
 using Microsoft.EntityFrameworkCore;
