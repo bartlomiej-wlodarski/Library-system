@@ -1,4 +1,5 @@
 ﻿using Data;
+using Library.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,16 @@ namespace Library.Logic.Services
 {
     public class BookService
     {
-        private readonly LibraryDataContext context;
-
-        public BookService(LibraryContext context)
-        {
-            this.context = context;
-        }
 
         public void AddBook(Book book)
         {
-            context.Set<Book>().Add(book);
-            context.SaveChanges();
+            using (var context = new LibraryDataContext())
+            {
+                context.Book.InsertOnSubmit(book);
+                context.SubmitChanges();
+            }
+            //context.Set<Book>().Add(book);
+            //context.SaveChanges();
         }
 
         public void AddBook(List<Book> books)
@@ -27,7 +27,6 @@ namespace Library.Logic.Services
             {
                 AddBook(book);
             }
-            context.SaveChanges();
         }
 
         public bool CheckAvaiability(Book book)

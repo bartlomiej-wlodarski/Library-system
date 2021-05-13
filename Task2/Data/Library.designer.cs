@@ -9,8 +9,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace Library.Data
 {
 	using System.Data.Linq;
@@ -32,12 +30,12 @@ namespace Library.Data
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertBook(Book instance);
-    partial void UpdateBook(Book instance);
-    partial void DeleteBook(Book instance);
     partial void InsertClient(Client instance);
     partial void UpdateClient(Client instance);
     partial void DeleteClient(Client instance);
+    partial void InsertBook(Book instance);
+    partial void UpdateBook(Book instance);
+    partial void DeleteBook(Book instance);
     partial void InsertEvent(Event instance);
     partial void UpdateEvent(Event instance);
     partial void DeleteEvent(Event instance);
@@ -73,19 +71,19 @@ namespace Library.Data
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Book> Book
-		{
-			get
-			{
-				return this.GetTable<Book>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Client> Client
 		{
 			get
 			{
 				return this.GetTable<Client>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Book> Book
+		{
+			get
+			{
+				return this.GetTable<Book>();
 			}
 		}
 		
@@ -95,6 +93,168 @@ namespace Library.Data
 			{
 				return this.GetTable<Event>();
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Client")]
+	public partial class Client : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Surname;
+		
+		private System.Nullable<int> _Age;
+		
+		private EntitySet<Event> _Event;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnSurnameChanging(string value);
+    partial void OnSurnameChanged();
+    partial void OnAgeChanging(System.Nullable<int> value);
+    partial void OnAgeChanged();
+    #endregion
+		
+		public Client()
+		{
+			this._Event = new EntitySet<Event>(new Action<Event>(this.attach_Event), new Action<Event>(this.detach_Event));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="VarChar(50)")]
+		public string Surname
+		{
+			get
+			{
+				return this._Surname;
+			}
+			set
+			{
+				if ((this._Surname != value))
+				{
+					this.OnSurnameChanging(value);
+					this.SendPropertyChanging();
+					this._Surname = value;
+					this.SendPropertyChanged("Surname");
+					this.OnSurnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Age", DbType="Int")]
+		public System.Nullable<int> Age
+		{
+			get
+			{
+				return this._Age;
+			}
+			set
+			{
+				if ((this._Age != value))
+				{
+					this.OnAgeChanging(value);
+					this.SendPropertyChanging();
+					this._Age = value;
+					this.SendPropertyChanged("Age");
+					this.OnAgeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Event", Storage="_Event", ThisKey="Id", OtherKey="client")]
+		public EntitySet<Event> Event
+		{
+			get
+			{
+				return this._Event;
+			}
+			set
+			{
+				this._Event.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Event(Event entity)
+		{
+			this.SendPropertyChanging();
+			entity.Client1 = this;
+		}
+		
+		private void detach_Event(Event entity)
+		{
+			this.SendPropertyChanging();
+			entity.Client1 = null;
 		}
 	}
 	
@@ -116,10 +276,10 @@ namespace Library.Data
 		
 		private System.Nullable<System.DateTime> _Date_of_publication;
 		
-		private State _State;
-        private EntitySet<Event> _Event;
-        #region Extensibility Method Definitions
-        partial void OnLoaded();
+		private EntitySet<Event> _Event;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnIdChanging(int value);
@@ -134,26 +294,14 @@ namespace Library.Data
     partial void OnGenreChanged();
     partial void OnDate_of_publicationChanging(System.Nullable<System.DateTime> value);
     partial void OnDate_of_publicationChanged();
-		#endregion
-
-		public Book(int id, string title, string author, int pages, BookGenre genre, DateTime date_of_publication)
-		{
-			Id = id;
-			Title = title;
-			Author = author;
-			Pages = pages;
-			Genre = genre;
-			Date_of_publication = date_of_publication;
-			State = new State(0);
-			OnCreated();
-		}
-
-		/*public Book()
+    #endregion
+		
+		public Book()
 		{
 			this._Event = new EntitySet<Event>(new Action<Event>(this.attach_Event), new Action<Event>(this.detach_Event));
 			OnCreated();
-		}*/
-
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
@@ -317,175 +465,6 @@ namespace Library.Data
 		{
 			this.SendPropertyChanging();
 			entity.Book1 = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Client")]
-	public partial class Client : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private string _Surname;
-		
-		private System.Nullable<int> _Age;
-        private EntitySet<Event> _Event;
-
-        #region Extensibility Method Definitions
-        partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnSurnameChanging(string value);
-    partial void OnSurnameChanged();
-    partial void OnAgeChanging(System.Nullable<int> value);
-    partial void OnAgeChanged();
-		#endregion
-
-		/*public Client()
-		{
-			this._Event = new EntitySet<Event>(new Action<Event>(this.attach_Event), new Action<Event>(this.detach_Event));
-			OnCreated();
-		}*/
-		public Client(int id, string name, string surname, int age)
-		{
-			Id = id;
-			Name = name;
-			Surname = surname;
-			Age = age;
-			OnCreated();
-		}
-
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="VarChar(50)")]
-		public string Surname
-		{
-			get
-			{
-				return this._Surname;
-			}
-			set
-			{
-				if ((this._Surname != value))
-				{
-					this.OnSurnameChanging(value);
-					this.SendPropertyChanging();
-					this._Surname = value;
-					this.SendPropertyChanged("Surname");
-					this.OnSurnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Age", DbType="Int")]
-		public System.Nullable<int> Age
-		{
-			get
-			{
-				return this._Age;
-			}
-			set
-			{
-				if ((this._Age != value))
-				{
-					this.OnAgeChanging(value);
-					this.SendPropertyChanging();
-					this._Age = value;
-					this.SendPropertyChanged("Age");
-					this.OnAgeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Event", Storage="_Event", ThisKey="Id", OtherKey="client")]
-		public EntitySet<Event> Event
-		{
-			get
-			{
-				return this._Event;
-			}
-			set
-			{
-				this._Event.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Event(Event entity)
-		{
-			this.SendPropertyChanging();
-			entity.Client1 = this;
-		}
-		
-		private void detach_Event(Event entity)
-		{
-			this.SendPropertyChanging();
-			entity.Client1 = null;
 		}
 	}
 	
@@ -704,65 +683,5 @@ namespace Library.Data
 			}
 		}
 	}
-}
-
-public partial class State
-{
-	private int _Id;
-	private int _stateValue;
-	private System.Nullable<System.DateTime> _date;
-	private int _client;
-
-	public State(int id)
-	{
-		this._stateValue = 1;
-		this._date = DateTime.Now;
-		this._client = 0;
-		this._Id = id;
-	}
-
-	public void Damaged(DateTime date, int client)
-	{
-		this._stateValue = 2;
-		this._client = client;
-		this._date = date;
-	}
-
-	public void Rented(DateTime date, int client)
-	{
-		_stateValue = 0;
-		this._client = client;
-		this._date = date;
-	}
-
-	public void Avaiable(DateTime date, int client)
-	{
-		_stateValue = 1;
-		this._client = client;
-		this._date = date;
-	}
-
-	public int GetState()
-	{
-		return _stateValue;
-	}
-	public System.Nullable<System.DateTime> GetDate()
-	{
-		return _date;
-	}
-
-	public int GetClient()
-	{
-		return _client;
-	}
-
-	//public BookCatalog Books { get; set; } = new BookCatalog();
-	//public Dictionary<int, int> BooksInStock { get; set; } = new Dictionary<int, int>();
-	/*
-	 * Let's say for now that:
-	 * 0 - means it is rented
-	 * 1 - means it is avaiable
-	 * 2 - means it is damaged
-	 */
 }
 #pragma warning restore 1591
