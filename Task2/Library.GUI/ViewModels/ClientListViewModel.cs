@@ -3,8 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Library.Data;
-using Library.Logic;
-using Library.Logic.Services;
+using Library.Services;
 
 namespace Library.UI.ViewModels
 {
@@ -15,7 +14,7 @@ namespace Library.UI.ViewModels
 
         public ClientListViewModel()
         {
-            Task.Run(() => { Clients = new ObservableCollection<Client>(_clientService.GetClients()); });
+            //Task.Run(() => { Clients = new ObservableCollection<Client>(ClientService.()); });
             /*AddCommand = new RelayCommand(Add, () => CanAdd);
             DeleteCommand = new RelayCommand(Delete, CanExecute);
             EditCommand = new RelayCommand(Edit, CanExecute);*/
@@ -29,7 +28,7 @@ namespace Library.UI.ViewModels
         #region private
 
         private Client _selectedClient;
-        private ClientService _clientService = new ClientService(new LibraryContext());
+        //private ClientService _clientService = new();
         private ObservableCollection<Client> _clients;
         private string _name;
         private string _surname;
@@ -101,7 +100,7 @@ namespace Library.UI.ViewModels
             }
         }
 
-        public ClientService UserService
+        /*public ClientService UserService
         {
             get => _clientService;
             set
@@ -109,7 +108,7 @@ namespace Library.UI.ViewModels
                 _clientService = value;
                 Clients = new ObservableCollection<Client>(value.GetClients());
             }
-        }
+        }*/
 
         public string Name
         {
@@ -133,13 +132,13 @@ namespace Library.UI.ViewModels
             }
         }
 
-        /*public int AmountOfBooksRented
+        /*public int AmountOfBookRented
         {
-            get => _amountOfBooksRented;
+            get => _amountOfBookRented;
             set
             {
-                _amountOfBooksRented = value;
-                RaisePropertyChanged(nameof(AmountOfBooksRented));
+                _amountOfBookRented = value;
+                RaisePropertyChanged(nameof(AmountOfBookRented));
             }
         }*/
 
@@ -161,7 +160,7 @@ namespace Library.UI.ViewModels
             {
                 Name = Name,
                 Surname = Surname,
-                AmountOfBooksRented = AmountOfBooksRented
+                AmountOfBookRented = AmountOfBookRented
             };
 
             Task.Factory.StartNew(() => _userService.AddUser(user))
@@ -177,7 +176,7 @@ namespace Library.UI.ViewModels
                 Id = SelectedUser.Id,
                 Name = Name,
                 Surname = Surname,
-                AmountOfBooksRented = AmountOfBooksRented
+                AmountOfBookRented = AmountOfBookRented
             };
 
             Task.Factory.StartNew(() => _userService.EditUser(user))

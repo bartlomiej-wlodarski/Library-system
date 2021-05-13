@@ -1,5 +1,5 @@
 ﻿using Library.Data;
-using Library.Logic.Services;
+using Library.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ namespace Library.UI.ViewModels
 
         public BookListViewModel()
         {
-            Task.Run(() => { Books = new ObservableCollection<Book>(_bookService.GetBookCatalog()); });
+            //Task.Run(() => { Book = new ObservableCollection<Book>(_Bookervice.GetBookCatalog()); });
             /*AddCommand = new RelayCommand(Add, () => CanAdd);
             DeleteCommand = new RelayCommand(Delete, CanExecute);
             EditCommand = new RelayCommand(Edit, CanExecute);*/
@@ -27,10 +27,10 @@ namespace Library.UI.ViewModels
         #region private
 
         private Book _selectedBook;
-        private BookService _bookService = new BookService(new LibraryContext());
-        private ObservableCollection<Book> _books;
-        private string _title;
-        private string _author;
+        //private Bookervice _Bookervice = new Bookervice(new LibraryContext());
+        private ObservableCollection<Book> _Book;
+        private string _Title;
+        private string _Author;
 
         #endregion
 
@@ -76,13 +76,13 @@ namespace Library.UI.ViewModels
 
         #region implementedProperties
 
-        public ObservableCollection<Book> Books
+        public ObservableCollection<Book> Book
         {
-            get => _books;
+            get => _Book;
             set
             {
-                _books = value;
-                RaisePropertyChanged(nameof(Books));
+                _Book = value;
+                RaisePropertyChanged(nameof(Book));
             }
         }
 
@@ -98,22 +98,22 @@ namespace Library.UI.ViewModels
             }
         }
 
-        public BookService Service
+        /*public Bookervice Service
         {
-            get => _bookService;
+            get => _Bookervice;
             set
             {
-                _bookService = value;
-                Books = new ObservableCollection<Book>(value.GetBookCatalog());
+                _Bookervice = value;
+                Book = new ObservableCollection<Book>(value.GetBookCatalog());
             }
-        }
+        }*/
 
         public string Title
         {
-            get => _title;
+            get => _Title;
             set
             {
-                _title = value;
+                _Title = value;
                 RaisePropertyChanged(nameof(Title));
                 //AddCommand.RaiseCanExecuteChanged();
             }
@@ -121,10 +121,10 @@ namespace Library.UI.ViewModels
 
         public string Author
         {
-            get => _author;
+            get => _Author;
             set
             {
-                _author = value;
+                _Author = value;
                 RaisePropertyChanged(nameof(Author));
                 //AddCommand.RaiseCanExecuteChanged();
             }
@@ -146,10 +146,10 @@ namespace Library.UI.ViewModels
 
         public void Delete()
         {
-            /*Task.Factory.StartNew(() => _bookService.DeleteBook(SelectedBook.Id))
-                .ContinueWith(t1 => BookService = _bookService);
+            /*Task.Factory.StartNew(() => _Bookervice.DeleteBook(SelectedBook.Id))
+                .ContinueWith(t1 => Bookervice = _Bookervice);
 
-            RaisePropertyChanged(nameof(Books));*/
+            RaisePropertyChanged(nameof(Book));*/
         }
 
         public void Add()
@@ -161,10 +161,10 @@ namespace Library.UI.ViewModels
                 BookGenre = BookGenre
             };
 
-            Task.Factory.StartNew(() => _bookService.AddBook(book))
-                .ContinueWith(t1 => BookService = _bookService);
+            Task.Factory.StartNew(() => _Bookervice.AddBook(book))
+                .ContinueWith(t1 => Bookervice = _Bookervice);
 
-            RaisePropertyChanged(nameof(Books));*/
+            RaisePropertyChanged(nameof(Book));*/
         }
 
         public void Edit()
@@ -177,10 +177,10 @@ namespace Library.UI.ViewModels
                 BookGenre = BookGenre
             };
 
-            Task.Factory.StartNew(() => _bookService.EditBook(book))
-                .ContinueWith(t1 => BookService = _bookService);
+            Task.Factory.StartNew(() => _Bookervice.EditBook(book))
+                .ContinueWith(t1 => Bookervice = _Bookervice);
 
-            RaisePropertyChanged(nameof(Books));*/
+            RaisePropertyChanged(nameof(Book));*/
         }
 
         #endregion

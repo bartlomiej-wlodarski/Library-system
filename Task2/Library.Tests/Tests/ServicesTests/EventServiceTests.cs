@@ -1,29 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data;
-using Library.Logic;
-using Library.Logic.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Library.LogicTests
+/*namespace Library.LogicTests
 {
     [TestClass]
-    public class EventServiceTests
+    public class EventerviceTests
     {
-        private readonly EventService service;
+        private readonly Eventervice service;
         private readonly Mock<DbSet<Event>> mockEvent;
         private readonly Mock<LibraryContext> mockLibrary;
-        private readonly IQueryable<Event> events;
+        private readonly IQueryable<Event> Event;
         readonly DateTime date_1 = new DateTime(1943, 4, 6);
         readonly DateTime date_2 = new DateTime(1997, 6, 26);
         readonly DateTime date_3 = new DateTime(2018, 10, 20);
 
-        public EventServiceTests()
+        public EventerviceTests()
         {
-            events = new List<Event>
+            Event = new List<Event>
             {
                 new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), date_1, new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)),
                 new Data.RentEvent(2, new Data.Client(2, "Maciej", "Wlodarczyk", 21), date_2, new Data.Book(2, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)),
@@ -31,20 +27,20 @@ namespace Library.LogicTests
             }.AsQueryable();
 
             mockEvent = new Mock<DbSet<Event>>();
-            mockEvent.As<IQueryable<Event>>().Setup(m => m.Provider).Returns(events.Provider);
-            mockEvent.As<IQueryable<Event>>().Setup(m => m.Expression).Returns(events.Expression);
-            mockEvent.As<IQueryable<Event>>().Setup(m => m.ElementType).Returns(events.ElementType);
-            mockEvent.As<IQueryable<Event>>().Setup(m => m.GetEnumerator()).Returns(events.GetEnumerator());
+            mockEvent.As<IQueryable<Event>>().Setup(m => m.Provider).Returns(Event.Provider);
+            mockEvent.As<IQueryable<Event>>().Setup(m => m.Expression).Returns(Event.Expression);
+            mockEvent.As<IQueryable<Event>>().Setup(m => m.ElementType).Returns(Event.ElementType);
+            mockEvent.As<IQueryable<Event>>().Setup(m => m.GetEnumerator()).Returns(Event.GetEnumerator());
             mockLibrary = new Mock<LibraryContext>();
             mockLibrary.Setup(x => x.Set<Event>()).Returns(mockEvent.Object);
 
-            service = new EventService(mockLibrary.Object);
+            service = new Eventervice(mockLibrary.Object);
         }
 
         [TestMethod]
         public void DataserviceAddEventTest()
         {
-            Assert.AreEqual(3, service.GetEventsNumber());
+            Assert.AreEqual(3, service.GetEventNumber());
 
             service.AddEvent(new Data.RentEvent(4, new Data.Client(4, "Monika", "Roksa", 23), date_1, new Data.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
             service.AddEvent(new Data.RentEvent(5, new Data.Client(5, "Anna", "Przystanska", 34), date_3, new Data.Book(5, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
@@ -55,7 +51,7 @@ namespace Library.LogicTests
         [TestMethod]
         public void DataserviceRemoveEventTest()
         {
-            Assert.AreEqual(3, service.GetEventsNumber());
+            Assert.AreEqual(3, service.GetEventNumber());
 
             service.RemoveEvent(1);
 
@@ -119,7 +115,7 @@ namespace Library.LogicTests
             service.ReturnEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
 
             Assert.IsTrue(service.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
-        }*/
+        }
 
         [TestMethod]
         public void DataserviceCatalogTest()
@@ -128,4 +124,4 @@ namespace Library.LogicTests
             Assert.AreEqual(catalog.FirstOrDefault(x => x.Id == 1), service.GetEvent(1));
         }
     }
-}
+}*/

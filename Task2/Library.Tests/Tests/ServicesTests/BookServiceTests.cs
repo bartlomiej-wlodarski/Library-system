@@ -1,29 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data;
-using Library.Logic;
-using Library.Logic.Services;
-using Microsoft.EntityFrameworkCore;
+using Library.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+
 
 namespace Library.LogicTests
 {
     [TestClass]
-    public class BookServiceTests
+    public class BookServiceTest
     {
-        private readonly BookService service;
+        [TestMethod]
+        public void Test()
+        {
+            Book book = new();
+        }
+    }
+}
+/*namespace Library.LogicTests
+{
+    [TestClass]
+    public class BookerviceTests
+    {
+        private readonly Bookervice service;
         private readonly Mock<DbSet<Book>> mockBook;
         private readonly Mock<LibraryContext> mockLibrary;
-        private readonly IQueryable<Book> books;
+        private readonly IQueryable<Book> Book;
         readonly DateTime date_1 = new DateTime(1943, 4, 6);
         readonly DateTime date_2 = new DateTime(1997, 6, 26);
         readonly DateTime date_3 = new DateTime(2018, 10, 20);
 
-        public BookServiceTests()
+        public BookerviceTests()
         {
-            books = new List<Book>
+            Book = new List<Book>
             {
                 new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1),
                 new Data.Book(2, "Harry Potter and the Philosopher's Stone", "J. K. Rowling", 667, Data.BookGenre.Fantasy, date_2),
@@ -31,20 +41,20 @@ namespace Library.LogicTests
             }.AsQueryable();
 
             mockBook = new Mock<DbSet<Book>>();
-            mockBook.As<IQueryable<Book>>().Setup(m => m.Provider).Returns(books.Provider);
-            mockBook.As<IQueryable<Book>>().Setup(m => m.Expression).Returns(books.Expression);
-            mockBook.As<IQueryable<Book>>().Setup(m => m.ElementType).Returns(books.ElementType);
-            mockBook.As<IQueryable<Book>>().Setup(m => m.GetEnumerator()).Returns(books.GetEnumerator());
+            mockBook.As<IQueryable<Book>>().Setup(m => m.Provider).Returns(Book.Provider);
+            mockBook.As<IQueryable<Book>>().Setup(m => m.Expression).Returns(Book.Expression);
+            mockBook.As<IQueryable<Book>>().Setup(m => m.ElementType).Returns(Book.ElementType);
+            mockBook.As<IQueryable<Book>>().Setup(m => m.GetEnumerator()).Returns(Book.GetEnumerator());
             mockLibrary = new Mock<LibraryContext>();
             mockLibrary.Setup(x => x.Set<Book>()).Returns(mockBook.Object);
 
-            service = new BookService(mockLibrary.Object);
+            service = new Bookervice(mockLibrary.Object);
         }
 
         [TestMethod]
         public void DataRepositoryAddBookTest()
         {
-            Assert.AreEqual(3, service.GetBooksNumber());
+            Assert.AreEqual(3, service.GetBookNumber());
 
             service.AddBook(new Data.Book(4, "Nie ma", "Mariusz Szczygiel", 332, Data.BookGenre.Personal, new DateTime(2018, 6, 12)));
             service.AddBook(new Data.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Data.BookGenre.Horror, new DateTime(2017, 11, 20)));
@@ -56,13 +66,13 @@ namespace Library.LogicTests
         [TestMethod]
         public void DataRepositoryAddBookListTest()
         {
-            List<Data.Book> listOfBooks = new List<Data.Book>
+            List<Data.Book> listOfBook = new List<Data.Book>
             {
                 new Data.Book(4, "Nie ma", "Mariusz Szczygiel", 332, Data.BookGenre.Personal, new DateTime(2018, 6, 12)),
                 new Data.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Data.BookGenre.Horror, new DateTime(2017, 11, 20)),
                 new Data.Book(6, "Krol", "Szczepan Twardoch", 350, Data.BookGenre.Horror, new DateTime(2016, 12, 24))
             };
-            service.AddBook(listOfBooks);
+            service.AddBook(listOfBook);
 
             mockLibrary.Verify(x => x.SaveChanges(), Times.Exactly(4));
         }
@@ -70,7 +80,7 @@ namespace Library.LogicTests
         [TestMethod]
         public void DataRepositoryRemoveBookTest()
         {
-            Assert.AreEqual(3, service.GetBooksNumber());
+            Assert.AreEqual(3, service.GetBookNumber());
 
             service.RemoveBook(1);
 
@@ -108,4 +118,4 @@ namespace Library.LogicTests
             Assert.IsTrue(catalog.Contains(service.GetBook(1)));
         }
     }
-}
+}*/

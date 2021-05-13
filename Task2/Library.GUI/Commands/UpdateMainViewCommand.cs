@@ -27,7 +27,7 @@ namespace Library.GUI.Commands
         {
             if (parameter.ToString() == "Clients")
                 _viewModel.SelectedViewModel = new ClientListViewModel();
-            else if (parameter.ToString() == "Books")
+            else if (parameter.ToString() == "Book")
                 _viewModel.SelectedViewModel = new BookListViewModel();
             else
                 _viewModel.SelectedViewModel = new MainViewModel();

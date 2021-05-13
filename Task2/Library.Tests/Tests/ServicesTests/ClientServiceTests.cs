@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Data;
-using Library.Logic;
-using Library.Logic.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Library.LogicTests
+/*namespace Library.LogicTests
 {
     [TestClass]
     public class ClientServiceTests
@@ -88,4 +83,4 @@ namespace Library.LogicTests
             Assert.AreEqual(catalog.FirstOrDefault(x => x.Id == 1), service.GetClient(1));
         }
     }
-}
+}*/
