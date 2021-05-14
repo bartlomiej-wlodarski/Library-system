@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Library.Data;
+using Db;
 using Library.Logic;
 using Library.Logic.Services;
 
@@ -29,7 +29,7 @@ namespace Library.UI.ViewModels
         #region private
 
         private Client _selectedClient;
-        private ClientService _clientService = new ClientService(new LibraryContext());
+        private ClientService _clientService = new ClientService(new DbContext());
         private ObservableCollection<Client> _clients;
         private string _name;
         private string _surname;

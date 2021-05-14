@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data;
+using Db;
 using Library.Logic;
 using Library.Logic.Services;
 using Microsoft.EntityFrameworkCore;
@@ -15,16 +15,16 @@ namespace Library.LogicTests
     {
         private readonly ClientService service;
         private readonly Mock<DbSet<Client>> mockClient;
-        private readonly Mock<LibraryContext> mockLibrary;
+        private readonly Mock<Db.DbContext> mockLibrary;
         private readonly IQueryable<Client> clients;
 
         public ClientServiceTests()
         {
             clients = new List<Client>
             {
-                new Data.Client(1, "Bartlomiej", "Wlodarski", 20),
-                new Data.Client(2, "Maciej", "Wlodarczyk", 21),
-                new Data.Client(3, "Jan", "Kowalski", 40)
+                new Db.Client(1, "Bartlomiej", "Wlodarski", 20),
+                new Db.Client(2, "Maciej", "Wlodarczyk", 21),
+                new Db.Client(3, "Jan", "Kowalski", 40)
             }.AsQueryable();
 
             mockClient = new Mock<DbSet<Client>>();
@@ -32,26 +32,26 @@ namespace Library.LogicTests
             mockClient.As<IQueryable<Client>>().Setup(m => m.Expression).Returns(clients.Expression);
             mockClient.As<IQueryable<Client>>().Setup(m => m.ElementType).Returns(clients.ElementType);
             mockClient.As<IQueryable<Client>>().Setup(m => m.GetEnumerator()).Returns(clients.GetEnumerator());
-            mockLibrary = new Mock<LibraryContext>();
+            mockLibrary = new Mock<Db.DbContext>();
             mockLibrary.Setup(x => x.Set<Client>()).Returns(mockClient.Object);
 
             service = new ClientService(mockLibrary.Object);
         }
 
         [TestMethod]
-        public void DataserviceAddClientTest()
+        public void DbserviceAddClientTest()
         {
             Assert.AreEqual(3, service.GetClientsNumber());
 
-            service.AddClient(new Data.Client(4, "Mateusz", "Owczarek", 22));
-            service.AddClient(new Data.Client(5, "Maciej", "Kopa", 16));
-            service.AddClient(new Data.Client(6, "Monika", "Roksa", 23));
+            service.AddClient(new Db.Client(4, "Mateusz", "Owczarek", 22));
+            service.AddClient(new Db.Client(5, "Maciej", "Kopa", 16));
+            service.AddClient(new Db.Client(6, "Monika", "Roksa", 23));
 
             mockLibrary.Verify(x => x.SaveChanges(), Times.Exactly(3));
         }
 
         [TestMethod]
-        public void DataserviceRemoveClientTest()
+        public void DbserviceRemoveClientTest()
         {
             Assert.AreEqual(3, service.GetClientsNumber());
 
@@ -61,7 +61,7 @@ namespace Library.LogicTests
         }
 
         [TestMethod]
-        public void DataserviceGetClientCatalogTest()
+        public void DbserviceGetClientCatalogTest()
         {
             Assert.AreEqual(1, service.GetClient(1).Id);
             Assert.AreEqual("Bartlomiej", service.GetClient(1).Name);
@@ -71,9 +71,9 @@ namespace Library.LogicTests
         }
 
         [TestMethod]
-        public void DataserviceEditClientTest()
+        public void DbserviceEditClientTest()
         {
-            service.EditClient(new Data.Client(1, "Bartlomiej", "Wlodarczyk", 21));
+            service.EditClient(new Db.Client(1, "Bartlomiej", "Wlodarczyk", 21));
 
             Assert.AreEqual(1, service.GetClient(1).Id);
             Assert.AreEqual("Bartlomiej", service.GetClient(1).Name);
@@ -82,7 +82,7 @@ namespace Library.LogicTests
         }
 
         [TestMethod]
-        public void DataserviceCatalogTest()
+        public void DbserviceCatalogTest()
         {
             IEnumerable<Client> catalog = service.GetClientCatalog();
             Assert.AreEqual(catalog.FirstOrDefault(x => x.Id == 1), service.GetClient(1));

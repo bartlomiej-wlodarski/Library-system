@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data;
-using Library.Logic;
+using Db;
 using Library.Logic.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,7 +14,7 @@ namespace Library.LogicTests
     {
         private readonly EventService service;
         private readonly Mock<DbSet<Event>> mockEvent;
-        private readonly Mock<LibraryContext> mockLibrary;
+        private readonly Mock<Db.DbContext> mockLibrary;
         private readonly IQueryable<Event> events;
         readonly DateTime date_1 = new DateTime(1943, 4, 6);
         readonly DateTime date_2 = new DateTime(1997, 6, 26);
@@ -25,9 +24,9 @@ namespace Library.LogicTests
         {
             events = new List<Event>
             {
-                new Data.RentEvent(1, new Data.Client(1, "Bartlomiej", "Wlodarski", 20), date_1, new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)),
-                new Data.RentEvent(2, new Data.Client(2, "Maciej", "Wlodarczyk", 21), date_2, new Data.Book(2, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)),
-                new Data.ReturnEvent(3, new Data.Client(3, "Jan", "Kowalski", 40), date_3, new Data.Book(3, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1))
+                new Db.RentEvent(1, new Db.Client(1, "Bartlomiej", "Wlodarski", 20), date_1, new Db.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)),
+                new Db.RentEvent(2, new Db.Client(2, "Maciej", "Wlodarczyk", 21), date_2, new Db.Book(2, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)),
+                new Db.ReturnEvent(3, new Db.Client(3, "Jan", "Kowalski", 40), date_3, new Db.Book(3, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1))
             }.AsQueryable();
 
             mockEvent = new Mock<DbSet<Event>>();
@@ -35,25 +34,25 @@ namespace Library.LogicTests
             mockEvent.As<IQueryable<Event>>().Setup(m => m.Expression).Returns(events.Expression);
             mockEvent.As<IQueryable<Event>>().Setup(m => m.ElementType).Returns(events.ElementType);
             mockEvent.As<IQueryable<Event>>().Setup(m => m.GetEnumerator()).Returns(events.GetEnumerator());
-            mockLibrary = new Mock<LibraryContext>();
+            mockLibrary = new Mock<Db.DbContext>();
             mockLibrary.Setup(x => x.Set<Event>()).Returns(mockEvent.Object);
 
             service = new EventService(mockLibrary.Object);
         }
 
         [TestMethod]
-        public void DataserviceAddEventTest()
+        public void DbserviceAddEventTest()
         {
             Assert.AreEqual(3, service.GetEventsNumber());
 
-            service.AddEvent(new Data.RentEvent(4, new Data.Client(4, "Monika", "Roksa", 23), date_1, new Data.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
-            service.AddEvent(new Data.RentEvent(5, new Data.Client(5, "Anna", "Przystanska", 34), date_3, new Data.Book(5, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+            service.AddEvent(new Db.RentEvent(4, new Db.Client(4, "Monika", "Roksa", 23), date_1, new Db.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
+            service.AddEvent(new Db.RentEvent(5, new Db.Client(5, "Anna", "Przystanska", 34), date_3, new Db.Book(5, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
 
             mockLibrary.Verify(x => x.SaveChanges(), Times.Exactly(2));
         }
 
         [TestMethod]
-        public void DataserviceRemoveEventTest()
+        public void DbserviceRemoveEventTest()
         {
             Assert.AreEqual(3, service.GetEventsNumber());
 
@@ -63,7 +62,7 @@ namespace Library.LogicTests
         }
 
         [TestMethod]
-        public void DataserviceGetEventCatalogTest()
+        public void DbserviceGetEventCatalogTest()
         {
             Assert.AreEqual(1, service.GetEvent(1).Id);
             Assert.AreEqual(1, service.GetEvent(1).Client.Id);
@@ -74,9 +73,9 @@ namespace Library.LogicTests
         }
 
         [TestMethod]
-        public void DataserviceEditEventTest()
+        public void DbserviceEditEventTest()
         {
-            service.EditEvent(new Data.RentEvent(1, new Data.Client(1, "Bartosz", "Wlodarczyk", 25), date_2, new Data.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+            service.EditEvent(new Db.RentEvent(1, new Db.Client(1, "Bartosz", "Wlodarczyk", 25), date_2, new Db.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
 
             Assert.AreEqual(1, service.GetEvent(1).Id);
             Assert.AreEqual(1, service.GetEvent(1).Client.Id);
@@ -85,7 +84,7 @@ namespace Library.LogicTests
             Assert.AreEqual(25, service.GetEvent(1).Client.Age);
             Assert.AreEqual(date_2, service.GetEvent(1).Date);
 
-            service.EditEvent(new Data.DamagedEvent(2, new Data.Client(2, "Marco", "Murinho", 37), date_1, new Data.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+            service.EditEvent(new Db.DamagedEvent(2, new Db.Client(2, "Marco", "Murinho", 37), date_1, new Db.Book(4, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
 
             Assert.AreEqual(2, service.GetEvent(2).Id);
             Assert.AreEqual(2, service.GetEvent(2).Client.Id);
@@ -98,31 +97,31 @@ namespace Library.LogicTests
 
 
         /*[TestMethod]
-        public void DataserviceRentEventTest()
+        public void DbserviceRentEventTest()
         {
-            service.AddBook(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
-            service.AddClient(new Data.Client(6, "Bartosz", "Wlodarski", 20));
-            service.RentEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+            service.AddBook(new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1));
+            service.AddClient(new Db.Client(6, "Bartosz", "Wlodarski", 20));
+            service.RentEvent(1, new Db.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1));
 
-            Assert.IsFalse(service.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+            Assert.IsFalse(service.CheckAvaiability(new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
         }
 
         [TestMethod]
-        public void DataserviceReturnEventTest()
+        public void DbserviceReturnEventTest()
         {
-            service.AddBook(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
-            service.AddClient(new Data.Client(6, "Bartosz", "Wlodarski", 20));
-            service.RentEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+            service.AddBook(new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1));
+            service.AddClient(new Db.Client(6, "Bartosz", "Wlodarski", 20));
+            service.RentEvent(1, new Db.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1));
 
-            Assert.IsFalse(service.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+            Assert.IsFalse(service.CheckAvaiability(new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
 
-            service.ReturnEvent(1, new Data.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1));
+            service.ReturnEvent(1, new Db.Client(6, "Bartosz", "Wlodarski", 20), new DateTime(2018, 10, 20), new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1));
 
-            Assert.IsTrue(service.CheckAvaiability(new Data.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1)));
+            Assert.IsTrue(service.CheckAvaiability(new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
         }*/
 
         [TestMethod]
-        public void DataserviceCatalogTest()
+        public void DbserviceCatalogTest()
         {
             IEnumerable<Event> catalog = service.GetEventCatalog();
             Assert.AreEqual(catalog.FirstOrDefault(x => x.Id == 1), service.GetEvent(1));

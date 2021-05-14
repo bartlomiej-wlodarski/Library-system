@@ -1,4 +1,4 @@
-﻿using Library.Data;
+﻿using Db;
 using Library.Logic.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,7 +27,7 @@ namespace Library.UI.ViewModels
         #region private
 
         private Book _selectedBook;
-        private BookService _bookService = new BookService(new LibraryContext());
+        private BookService _bookService = new BookService(new DbContext());
         private ObservableCollection<Book> _books;
         private string _title;
         private string _author;

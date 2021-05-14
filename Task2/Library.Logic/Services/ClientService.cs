@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ namespace Library.Logic.Services
 {
     public class ClientService
     {
-        private readonly LibraryContext context;
+        private readonly DbContext context;
 
-        public ClientService(LibraryContext context)
+        public ClientService(DbContext context)
         {
             this.context = context;
         }
