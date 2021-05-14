@@ -15,6 +15,7 @@ namespace ServicesTest
         private readonly BookService service;
         public BookServiceTest()
         {
+            service = new BookService(new TestDbDataSet());
             /*IQueryable<Book> books = new List<Book>
             {
                 //new Data.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Data.BookGenre.Childrens, date_1),

@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Library.Services
 {
-    public class BookService
+    public class BookService : IBookService
     {
-        private readonly LibraryDataContext context;
+        private readonly IBookService context;
 
-        public BookService(LibraryDataContext context)
+        public BookService(IBookService context)
         {
             this.context = context;
         }
