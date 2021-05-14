@@ -5,48 +5,31 @@ using System.Linq;
 
 namespace Library.Services
 {
-    public class Eventervice
+    public class EventService
 	{
-        static public IEnumerable<Event> GetEvent()
+        static public IEnumerable<Event> GetEvents()
         {
             using (var context = new LibraryDataContext())
             {
-                return context.Event.ToList();
+                return context.Events.ToList();
             }
         }
  
-        static public IEnumerable<Event> GetEventForClientByName(string fName, string lName)
+        static public IEnumerable<Event> GetEventsForReaderByName(string fName, string lName)
         {
             using (var context = new LibraryDataContext())
             {
-                Client Client = ClientService.GetClient(fName, lName);
+                Reader reader = ReaderService.GetReader(fName, lName);
 
-                if (Client == null)
+                if (reader == null)
                 {
                     return null;
                 }
 
                 List<Event> result = new List<Event>();
-                foreach (Event e in context.Event.ToList())
+                foreach (Event e in context.Events.ToList())
                 {
-                    if (e.client == Client.Id)
-                    {
-                        result.Add(e);
-                    }
-                }
-                return result;
-            }
-        }
-        public IEnumerable<Event> GetEventForBookByTitle(string Title)
-        {
-            using (var context = new LibraryDataContext())
-            {
-                Book book = context.Book.SingleOrDefault(b => b.Title.Equals(Title));
-
-                List<Event> result = new List<Event>();
-                foreach (Event e in context.Event.ToList())
-                {
-                    if (e.book == book.Id)
+                    if (e.reader == reader.reader_id)
                     {
                         result.Add(e);
                     }
@@ -55,14 +38,17 @@ namespace Library.Services
             }
         }
 
-        static public IEnumerable<Event> GetBorrowingEvent()
+        // BookService can be maybe used? 
+        public IEnumerable<Event> GetEventsForBookByTitle(string title)
         {
             using (var context = new LibraryDataContext())
             {
+                Book book = context.Books.SingleOrDefault(b => b.title.Equals(title));
+
                 List<Event> result = new List<Event>();
-                foreach (Event e in context.Event.ToList())
+                foreach (Event e in context.Events.ToList())
                 {
-                    if (true) //wrong
+                    if (e.book == book.book_id)
                     {
                         result.Add(e);
                     }
@@ -71,14 +57,30 @@ namespace Library.Services
             }
         }
 
-        static public IEnumerable<Event> GetReturningEvent()
+        static public IEnumerable<Event> GetBorrowingEvents()
         {
             using (var context = new LibraryDataContext())
             {
                 List<Event> result = new List<Event>();
-                foreach (Event e in context.Event.ToList())
+                foreach (Event e in context.Events.ToList())
                 {
-                    if (false) //wrong
+                    if (e.is_borrowing_event)
+                    {
+                        result.Add(e);
+                    }
+                }
+                return result;
+            }
+        }
+
+        static public IEnumerable<Event> GetReturningEvents()
+        {
+            using (var context = new LibraryDataContext())
+            {
+                List<Event> result = new List<Event>();
+                foreach (Event e in context.Events.ToList())
+                {
+                    if (!e.is_borrowing_event)
                     {
                         result.Add(e);
                     }
@@ -88,38 +90,38 @@ namespace Library.Services
         }
 
       
-        static public IEnumerable<Event> GetEventByDate(DateTime date)
+        static public IEnumerable<Event> GetEventsByDate(DateTime date)
         {
             using (var context = new LibraryDataContext())
             {
-                List<Event> Event = new List<Event>();
-                foreach (Event ev in context.Event.ToList())
+                List<Event> events = new List<Event>();
+                foreach (Event ev in context.Events.ToList())
                 {
-                    if (ev.Date == date)
+                    if (ev.event_time == date)
                     {
-                        Event.Add(ev);
+                        events.Add(ev);
                     }
                 }
-                return Event;
+                return events;
             }
         }
 
         
-        static public bool AddEvent(DateTime time, bool isBorrowingEvent, int bookId, int ClientId)
+        static public bool AddEvent(DateTime time, bool isBorrowingEvent, int bookId, int readerId)
         {
             using (var context = new LibraryDataContext())
             {
-                if (context.Client.SingleOrDefault(r => r.Id.Equals(ClientId)) != null &&
-                        context.Book.SingleOrDefault(b => b.Id.Equals(bookId)) != null )
+                if (context.Readers.SingleOrDefault(r => r.reader_id.Equals(readerId)) != null &&
+                        context.Books.SingleOrDefault(b => b.book_id.Equals(bookId)) != null )
                 {
                     Event newEvent = new Event
                     {
-                        Date = time,
-                        // = isBorrowingEvent,
+                        event_time = time,
+                        is_borrowing_event = isBorrowingEvent,
                         book = bookId,
-                        client = ClientId
+                        reader = readerId
                     };
-                    context.Event.InsertOnSubmit(newEvent);
+                    context.Events.InsertOnSubmit(newEvent);
                     context.SubmitChanges();
                     return true;
                 }
@@ -127,14 +129,14 @@ namespace Library.Services
             }
         }
 
-        static public bool DeleteEvent(int ClientId, int bookId)
+        static public bool DeleteEvent(int readerId, int bookId)
         {
             using (var context = new LibraryDataContext())
             {
-                Event ev = context.Event.FirstOrDefault(e => e.client == ClientId && e.book == bookId);
+                Event ev = context.Events.FirstOrDefault(e => e.reader == readerId && e.book == bookId);
                 if (ev != null)
                 {
-                    context.Event.DeleteOnSubmit(ev);
+                    context.Events.DeleteOnSubmit(ev);
                     context.SubmitChanges();
                     return true;
                 }
@@ -143,27 +145,27 @@ namespace Library.Services
         }
 
 
-        static public void DeleteEventForClient(int ClientId)
+        static public void DeleteEventsForReader(int readerId)
         {
             using (var context = new LibraryDataContext())
             {
-                IEnumerable<Event> Event = context.Event.Where(e => e.client == ClientId);
-                foreach (Event e in Event)
+                IEnumerable<Event> events = context.Events.Where(e => e.reader == readerId);
+                foreach (Event e in events)
                 {
-                    context.Event.DeleteOnSubmit(e);
+                    context.Events.DeleteOnSubmit(e);
                     context.SubmitChanges();
                 }
             }
         }
 
-        static public void DeleteEventForBook(int bookId)
+        static public void DeleteEventsForBook(int bookId)
         {
             using (var context = new LibraryDataContext())
             {
-                IEnumerable<Event> Event = context.Event.Where(e => e.book == bookId);
-                foreach (Event e in Event)
+                IEnumerable<Event> events = context.Events.Where(e => e.book == bookId);
+                foreach (Event e in events)
                 {
-                    context.Event.DeleteOnSubmit(e);
+                    context.Events.DeleteOnSubmit(e);
                     context.SubmitChanges();
                 }
             }
@@ -174,8 +176,8 @@ namespace Library.Services
         {
             using (var context = new LibraryDataContext())
             {
-                Event ev = context.Event.SingleOrDefault(e => e.Id == id);
-                ev.Date = time;
+                Event ev = context.Events.SingleOrDefault(e => e.event_id == id);
+                ev.event_time = time;
                 context.SubmitChanges();
                 return true;
             }
@@ -185,72 +187,71 @@ namespace Library.Services
         {
             using (var context = new LibraryDataContext())
             {
-                Event ev = context.Event.SingleOrDefault(e => e.Id == id);
-                //ev.is_borrowing_event = !ev.is_borrowing_event;
+                Event ev = context.Events.SingleOrDefault(e => e.event_id == id);
+                ev.is_borrowing_event = !ev.is_borrowing_event;
                 context.SubmitChanges();
                 return true;
             }
         }
 
-        static public bool BorrowBookForClient(Book book, Client Client)
+        static public bool BorrowBookForReader(Book book, Reader reader)
         {
             using (var context = new LibraryDataContext())
             {
-                if (book != null && Client != null)
+                if (book != null && reader != null)
                 {
-                    /*if (book.quantity > 0)
+                    if (book.quantity > 0)
                     {
-                        AddEvent(DateTime.Today, true, book.Id, Client.Id);
+                        AddEvent(DateTime.Today, true, book.book_id, reader.reader_id);
                         book.quantity -= 1;
-                        Bookervice.UpdateBookQuantity(book.Id, (int)book.quantity);
+                        //BookService.UpdateBookQuantity(book.book_id, (int)book.quantity);
                         return true;
-                    }/*/
+                    }
                 }
             }
             return false;
         }
 
-        static public bool ReturnBookByClient(Book book, Client Client)
+        static public bool ReturnBookByReader(Book book, Reader reader)
         {
             using (var context = new LibraryDataContext())
             {
-                if (book != null && Client != null)
+                if (book != null && reader != null)
                 {
-                    /*if (CheckEventForBookAndClient(Client.Id, book.Id))
+                    if (CheckEventForBookAndReader(reader.reader_id, book.book_id))
                     {
-                        AddEvent(DateTime.Today, false, book.Id, Client.Id);
+                        AddEvent(DateTime.Today, false, book.book_id, reader.reader_id);
                         book.quantity += 1;
-                        Bookervice.UpdateBookQuantity(book.Id, (int)book.quantity);
+                        //BookService.UpdateBookQuantity(book.book_id, (int)book.quantity);
                         return true;
-                    }*/
+                    }
                 }
                 return false;
             }
         }
 
-        static public bool CheckEventForBookAndClient(int ClientId, int bookId)
+        static public bool CheckEventForBookAndReader(int readerId, int bookId)
         {
             using (var context = new LibraryDataContext())
             {
-                /*Book book = context.Book.SingleOrDefault(b => b.Id.Equals(bookId));
-                Client Client = context.Clients.SingleOrDefault(r => r.Id.Equals(ClientId));
+                Book book = context.Books.SingleOrDefault(b => b.book_id.Equals(bookId));
+                Reader reader = context.Readers.SingleOrDefault(r => r.reader_id.Equals(readerId));
 
-                List<Event> bEvent = new List<Event>();
-                List<Event> rEvent = new List<Event>();
-                foreach (Event e in context.Event.ToList())
+                List<Event> bEvents = new List<Event>();
+                List<Event> rEvents = new List<Event>();
+                foreach (Event e in context.Events.ToList())
                 {
-                    if (e.book == book.Id && e.Client == ClientId && e.is_borrowing_event)
+                    if (e.book == book.book_id && e.reader == readerId && e.is_borrowing_event)
                     {
-                        bEvent.Add(e);
+                        bEvents.Add(e);
                     }
-                    else if (e.book == book.Id && e.Client == ClientId && !e.is_borrowing_event)
+                    else if (e.book == book.book_id && e.reader == readerId && !e.is_borrowing_event)
                     {
-                        rEvent.Add(e);
+                        rEvents.Add(e);
                     }
                 }
-                return bEvent.Count() > rEvent.Count();*/
+                return bEvents.Count() > rEvents.Count();
             }
-            return false;
         }
 
 

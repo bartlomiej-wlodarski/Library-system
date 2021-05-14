@@ -25,12 +25,12 @@ namespace Library.GUI.Commands
 
         public void Execute(object parameter)
         {
-            if (parameter.ToString() == "Clients")
+            /*if (parameter.ToString() == "Clients")
                 _viewModel.SelectedViewModel = new ClientListViewModel();
-            else if (parameter.ToString() == "Book")
+            else if (parameter.ToString() == "Books")
                 _viewModel.SelectedViewModel = new BookListViewModel();
             else
-                _viewModel.SelectedViewModel = new MainViewModel();
+                _viewModel.SelectedViewModel = new MainViewModel();*/
 
         }
 

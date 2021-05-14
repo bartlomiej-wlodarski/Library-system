@@ -3,21 +3,20 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Library.Data;
-using Library.Services;
 
 namespace Library.UI.ViewModels
 {
-    public class ClientListViewModel : BaseViewModel, IDataErrorInfo
+    /*public class ClientListViewModel : BaseViewModel, IDataErrorInfo
     {
         public bool CanAdd => !(string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname));
 
 
         public ClientListViewModel()
         {
-            //Task.Run(() => { Clients = new ObservableCollection<Client>(ClientService.()); });
+            Task.Run(() => { Clients = new ObservableCollection<Client>(_clientService.GetClients()); });
             /*AddCommand = new RelayCommand(Add, () => CanAdd);
             DeleteCommand = new RelayCommand(Delete, CanExecute);
-            EditCommand = new RelayCommand(Edit, CanExecute);*/
+            EditCommand = new RelayCommand(Edit, CanExecute);
         }
 
         public bool CanExecute()
@@ -28,7 +27,7 @@ namespace Library.UI.ViewModels
         #region private
 
         private Client _selectedClient;
-        //private ClientService _clientService = new();
+        private ClientService _clientService = new ClientService(new LibraryContext());
         private ObservableCollection<Client> _clients;
         private string _name;
         private string _surname;
@@ -40,7 +39,7 @@ namespace Library.UI.ViewModels
 
         /*public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
-        public RelayCommand EditCommand { get; set; }*/
+        public RelayCommand EditCommand { get; set; }
         public Dictionary<string, string> ErrorCollection { get; } = new Dictionary<string, string>();
 
         #endregion
@@ -96,11 +95,11 @@ namespace Library.UI.ViewModels
                 _selectedClient = value;
                 RaisePropertyChanged(nameof(SelectedClient));
                 /*DeleteCommand.RaiseCanExecuteChanged();
-                EditCommand.RaiseCanExecuteChanged();*/
+                EditCommand.RaiseCanExecuteChanged();
             }
         }
 
-        /*public ClientService UserService
+        public ClientService UserService
         {
             get => _clientService;
             set
@@ -108,7 +107,7 @@ namespace Library.UI.ViewModels
                 _clientService = value;
                 Clients = new ObservableCollection<Client>(value.GetClients());
             }
-        }*/
+        }
 
         public string Name
         {
@@ -132,15 +131,15 @@ namespace Library.UI.ViewModels
             }
         }
 
-        /*public int AmountOfBookRented
+        /*public int AmountOfBooksRented
         {
-            get => _amountOfBookRented;
+            get => _amountOfBooksRented;
             set
             {
-                _amountOfBookRented = value;
-                RaisePropertyChanged(nameof(AmountOfBookRented));
+                _amountOfBooksRented = value;
+                RaisePropertyChanged(nameof(AmountOfBooksRented));
             }
-        }*/
+        }
 
         #endregion
 
@@ -151,7 +150,7 @@ namespace Library.UI.ViewModels
             /*Task.Factory.StartNew(() => _userService.DeleteUser(SelectedUser.Id))
                 .ContinueWith(t1 => UserService = _userService);
 
-            RaisePropertyChanged(nameof(Users));*/
+            RaisePropertyChanged(nameof(Users));
         }
 
         public void Add()
@@ -160,13 +159,13 @@ namespace Library.UI.ViewModels
             {
                 Name = Name,
                 Surname = Surname,
-                AmountOfBookRented = AmountOfBookRented
+                AmountOfBooksRented = AmountOfBooksRented
             };
 
             Task.Factory.StartNew(() => _userService.AddUser(user))
                 .ContinueWith(t1 => UserService = _userService);
 
-            RaisePropertyChanged(nameof(Users));*/
+            RaisePropertyChanged(nameof(Users));
         }
 
         public void Edit()
@@ -176,15 +175,15 @@ namespace Library.UI.ViewModels
                 Id = SelectedUser.Id,
                 Name = Name,
                 Surname = Surname,
-                AmountOfBookRented = AmountOfBookRented
+                AmountOfBooksRented = AmountOfBooksRented
             };
 
             Task.Factory.StartNew(() => _userService.EditUser(user))
                 .ContinueWith(t1 => UserService = _userService);
 
-            RaisePropertyChanged(nameof(Users));*/
+            RaisePropertyChanged(nameof(Users));
         }
 
         #endregion
-    }
+    }*/
 }

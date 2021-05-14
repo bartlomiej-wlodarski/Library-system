@@ -4,133 +4,112 @@ using System.Linq;
 
 namespace Library.Services
 {
-    public class Bookervice
+    public class BookService
     {
-        public IEnumerable<Book> GetAllBook()
+        private readonly LibraryDataContext context;
+
+        public BookService(LibraryDataContext context)
         {
-            using (var context = new LibraryDataContext())
-            {
-                var result = context.Book.ToList();
-                return result;
-            }
+            this.context = context;
         }
 
-        static public Book GetBook(string Title, string Author)
+        public IEnumerable<Book> GetAllBooks()
         {
-            using (var context = new LibraryDataContext())
+            return context.Books.ToList();
+        }
+
+        public Book GetBook(string title, string author)
+        {
+            foreach (Book b in context.Books.ToList())
             {
-                foreach (Book b in context.Book.ToList())
+                if (b.title.Equals(title) && b.author.Equals(author))
                 {
-                    if (b.Title.Equals(Title) && b.Author.Equals(Author))
-                    {
-                        return b;
-                    }
+                    return b;
                 }
-                return null; 
             }
+            return null;
         }
 
         public Book GetBookById(int id)
         {
-            using (var context = new LibraryDataContext())
+            foreach (Book b in context.Books.ToList())
             {
-                foreach (Book b in context.Book.ToList())
+                if (b.book_id.Equals(id))
                 {
-                    if(b.Id.Equals(id))
-                    {
-                        return b;
-                    }
+                    return b;
                 }
-                return null;
             }
+            return null;
         }
 
-        static public IEnumerable<Book> GetBookByGenre(string g)
+        public IEnumerable<Book> GetBooksByGenre(string g)
         {
-            using (var context = new LibraryDataContext())
-            {
-                return context.Book.Where(book => book.Genre.Equals(g)).ToList();
-            }
+            return context.Books.Where(book => book.genre.Equals(g)).ToList();
         }
 
-        static public bool AddBook(string a, string t, System.DateTime date, string g, int q)
+        public bool AddBook(string a, string t, int year, string g, int q)
         {
-            using (var context = new LibraryDataContext())
+            if (GetBook(t, a) == null && q >= 0) //if the book doesn't already exist in the db and quantity is not negative
             {
-                if (GetBook(t, a) == null && q >= 0)
+                Book newBook = new Book
                 {
-                    Book newBook = new Book
-                    {
-                        Author = a,
-                        Title = t,
-                        Date_of_publication = date,
-                        Genre = g,
-                        //quantity = q
-                    };
-                    context.Book.InsertOnSubmit(newBook);
-                    context.SubmitChanges();
-                    return true;
-                }
-                return false;
+                    author = a,
+                    title = t,
+                    publishment_year = year,
+                    genre = g,
+                    quantity = q
+                };
+                context.Books.InsertOnSubmit(newBook);  //add to collection
+                context.SubmitChanges();    //add to db
+                return true;
             }
+            return false;
         }
 
-        static public bool UpdateBookQuantity(int _id, int q)
+        public bool UpdateBookQuantity(int _id, int q)
         {
-            using (var context = new LibraryDataContext())
+            if (q >= 0)
             {
-                if (q >= 0)
-                {
-                    Book book = context.Book.SingleOrDefault(i => i.Id == _id);
-                    //book.quantity = q;
-                    context.SubmitChanges();
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        static public int GetMaxId()
-        {
-            using (var context = new LibraryDataContext())
-            {
-                if (context.Book.Count() == 0)
-                    return 0;
-                else
-                    return context.Book.OrderByDescending(b => b.Id).First().Id;
-            }
-        }
-
-        static public bool UpdateBook(int id, string Title, string Author,
-            System.DateTime date, string genre, int quantity)
-        {
-            using (var context = new LibraryDataContext())
-            {
-                Book book = context.Book.SingleOrDefault(b => b.Id == id);
-                if (GetBook(Title, Author) == null)
-                {
-                    book.Title = Title;
-                    book.Author = Author;
-                    book.Date_of_publication = date;
-                    book.Genre = genre;
-                    //book.quantity = quantity;
-                    context.SubmitChanges();
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        static public bool DeleteBook(string Title)
-        {
-            using (var context = new LibraryDataContext())
-            {
-                Book book = context.Book.FirstOrDefault(i => i.Title == Title);
-                Eventervice.DeleteEventForBook(book.Id);
-                context.Book.DeleteOnSubmit(book);
+                Book book = context.Books.SingleOrDefault(i => i.book_id == _id);
+                book.quantity = q;
                 context.SubmitChanges();
                 return true;
             }
+            return false;
+        }
+
+        public int GetMaxId()
+        {
+            if (context.Books.Count() == 0)
+                return 0;
+            else
+                return context.Books.OrderByDescending(b => b.book_id).First().book_id;
+        }
+
+        public bool UpdateBook(int id, string title, string author,
+            int year, string genre, int quantity)
+        {
+            Book book = context.Books.SingleOrDefault(b => b.book_id == id);
+            if (GetBook(title, author) == null)
+            {
+                book.title = title;
+                book.author = author;
+                book.publishment_year = year;
+                book.genre = genre;
+                book.quantity = quantity;
+                context.SubmitChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteBook(string title)
+        {
+            Book book = context.Books.FirstOrDefault(i => i.title == title);
+            EventService.DeleteEventsForBook(book.book_id);
+            context.Books.DeleteOnSubmit(book);
+            context.SubmitChanges();
+            return true;
         }
     }
 }
