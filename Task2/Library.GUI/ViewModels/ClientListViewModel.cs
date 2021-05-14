@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Db;
 using Library.Logic;
 using Library.Logic.Services;
+using Library.GUI.Commands;
 
 namespace Library.UI.ViewModels
 {
@@ -16,9 +17,9 @@ namespace Library.UI.ViewModels
         public ClientListViewModel()
         {
             Task.Run(() => { Clients = new ObservableCollection<Client>(_clientService.GetClients()); });
-            /*AddCommand = new RelayCommand(Add, () => CanAdd);
+            AddCommand = new RelayCommand(Add, () => CanAdd);
             DeleteCommand = new RelayCommand(Delete, CanExecute);
-            EditCommand = new RelayCommand(Edit, CanExecute);*/
+            EditCommand = new RelayCommand(Edit, CanExecute);
         }
 
         public bool CanExecute()
@@ -39,9 +40,9 @@ namespace Library.UI.ViewModels
 
         #region properties
 
-        /*public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
-        public RelayCommand EditCommand { get; set; }*/
+        public RelayCommand EditCommand { get; set; }
         public Dictionary<string, string> ErrorCollection { get; } = new Dictionary<string, string>();
 
         #endregion
@@ -96,8 +97,8 @@ namespace Library.UI.ViewModels
             {
                 _selectedClient = value;
                 RaisePropertyChanged(nameof(SelectedClient));
-                /*DeleteCommand.RaiseCanExecuteChanged();
-                EditCommand.RaiseCanExecuteChanged();*/
+                DeleteCommand.RaiseCanExecuteChanged();
+                EditCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -118,7 +119,7 @@ namespace Library.UI.ViewModels
             {
                 _name = value;
                 RaisePropertyChanged(nameof(Name));
-                //AddCommand.RaiseCanExecuteChanged();
+                AddCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -129,7 +130,7 @@ namespace Library.UI.ViewModels
             {
                 _surname = value;
                 RaisePropertyChanged(nameof(Surname));
-                //AddCommand.RaiseCanExecuteChanged();
+                AddCommand.RaiseCanExecuteChanged();
             }
         }
 

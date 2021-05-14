@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Library.GUI.Commands;
+using Library.UI.ViewModels;
 
-namespace Library.UI.ViewModels
+namespace Library.GUI.ViewModels
 {
     public class BookListViewModel : BaseViewModel, IDataErrorInfo
     {
@@ -14,9 +16,9 @@ namespace Library.UI.ViewModels
         public BookListViewModel()
         {
             Task.Run(() => { Books = new ObservableCollection<Book>(_bookService.GetBookCatalog()); });
-            /*AddCommand = new RelayCommand(Add, () => CanAdd);
-            DeleteCommand = new RelayCommand(Delete, CanExecute);
-            EditCommand = new RelayCommand(Edit, CanExecute);*/
+            //AddCommand = new RelayCommand(Add, () => CanAdd);
+            //DeleteCommand = new RelayCommand(Delete, CanExecute);
+            //EditCommand = new RelayCommand(Edit, CanExecute);
         }
 
         private bool CanExecute()
@@ -36,9 +38,9 @@ namespace Library.UI.ViewModels
 
         #region properties
 
-        //public RelayCommand DeleteCommand { get; set; }
-        //public RelayCommand AddCommand { get; set; }
-        //public RelayCommand EditCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand AddCommand { get; set; }
+        public RelayCommand EditCommand { get; set; }
         public Dictionary<string, string> ErrorCollection { get; } = new Dictionary<string, string>();
 
         #endregion
@@ -93,8 +95,8 @@ namespace Library.UI.ViewModels
             {
                 _selectedBook = value;
                 RaisePropertyChanged(nameof(SelectedBook));
-                //DeleteCommand.RaiseCanExecuteChanged();
-                //EditCommand.RaiseCanExecuteChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
+                EditCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -115,7 +117,7 @@ namespace Library.UI.ViewModels
             {
                 _title = value;
                 RaisePropertyChanged(nameof(Title));
-                //AddCommand.RaiseCanExecuteChanged();
+                AddCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -126,63 +128,68 @@ namespace Library.UI.ViewModels
             {
                 _author = value;
                 RaisePropertyChanged(nameof(Author));
-                //AddCommand.RaiseCanExecuteChanged();
+                AddCommand.RaiseCanExecuteChanged();
             }
         }
-
-        /*public BookEnum BookGenre
+        /*
+        public BookGenre genre
         {
-            get => _bookGenre;
+            get => _BookGenre;
             set
             {
-                _bookGenre = value;
+                _genre = value;
                 RaisePropertyChanged(nameof(BookGenre));
             }
-        }*/
-
+        }
+        
         #endregion
 
         #region commands
 
         public void Delete()
         {
-            /*Task.Factory.StartNew(() => _bookService.DeleteBook(SelectedBook.Id))
+            Task.Factory.StartNew(() => _bookService.DeleteBook(SelectedBook.Id))
                 .ContinueWith(t1 => BookService = _bookService);
 
-            RaisePropertyChanged(nameof(Books));*/
+            RaisePropertyChanged(nameof(Books));
         }
 
-        public void Add()
+        public void AddBook()
         {
-            /*var book = new Book
+            var book = new Book
             {
-                Title = Title,
-                Author = Author,
-                BookGenre = BookGenre
-            };
+                Id = id;
+                Title = title;
+                Author = author;
+                Pages = pages;
+                Genre = genre;
+                Date_of_publication = date_of_publication;
+        };
 
             Task.Factory.StartNew(() => _bookService.AddBook(book))
                 .ContinueWith(t1 => BookService = _bookService);
 
-            RaisePropertyChanged(nameof(Books));*/
+            RaisePropertyChanged(nameof(Books));
         }
 
         public void Edit()
         {
-            /*var book = new Book
+            var book = new Book
             {
-                Id = SelectedBook.Id,
-                Title = Title,
-                Author = Author,
-                BookGenre = BookGenre
-            };
+                Id = _id;
+                Title = Title;
+                Author = Author;
+                Pages = Pages;
+                BookGenre = BookGenre;
+                Date_of_publication = Date_of_publication;
+    };
 
             Task.Factory.StartNew(() => _bookService.EditBook(book))
                 .ContinueWith(t1 => BookService = _bookService);
 
-            RaisePropertyChanged(nameof(Books));*/
+            RaisePropertyChanged(nameof(Books));
         }
-
+        */
         #endregion
     }
 }

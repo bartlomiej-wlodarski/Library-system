@@ -32,9 +32,9 @@ namespace Library.Logic.Services
 
             if (_client != null)
             {
-                _client.Name = client.Name;
-                _client.Surname = client.Surname;
-                _client.Age = client.Age;
+                editedClient.Name = client.Name;
+                editedUser.Surname = user.Surname;
+                editedUser.AmountOfBooksRented = user.AmountOfBooksRented;
 
                 context.SaveChanges();
             }
