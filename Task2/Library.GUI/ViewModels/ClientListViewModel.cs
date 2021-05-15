@@ -3,11 +3,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Db;
-using Library.Logic;
+using Library.UI.ViewModels;
 using Library.Logic.Services;
 using Library.GUI.Commands;
 
-namespace Library.UI.ViewModels
+namespace Library.GUI.ViewModels
 {
     public class ClientListViewModel : BaseViewModel, IDataErrorInfo
     {

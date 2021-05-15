@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Library.GUI"
              xmlns:views="clr-namespace:Library.GUI.Views"
-             xmlns:viewModels="clr-namespace:Library.UI.ViewModels"
-             StartupUri="MainWindow.xaml">
+             xmlns:viewModels="clr-namespace:Library.GUI.ViewModels"
+             StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <DataTemplate DataType="{x:Type viewModels:ClientListViewModel}">
             <views:ClientListView />

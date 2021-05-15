@@ -4,10 +4,117 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Library.GUI.Views"
+             xmlns:viewModels="clr-namespace:Library.GUI.ViewModels"
+             xmlns:data1="clr-namespace:Db;assembly=Db"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label FontSize="40"
-               HorizontalAlignment="Center" Content="Add Book or Books"/>
-    </Grid>
+             d:DesignHeight="500" d:DesignWidth="1000">
+    <!--
+    <UserControl.Resources>
+        <vm:BookListViewModel x:Key="BookListViewModel" />
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="data1:BookEnum" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>-->
+    <StackPanel DataContext="{StaticResource BookViewModel}" Orientation="Vertical" Background="Moccasin">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="75" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="List of Books:" HorizontalAlignment="Left" FontSize="18" FontWeight="Bold" FontFamily="Verdana" Grid.Column="2" Height="35" Margin="26,0,0,0" VerticalAlignment="Top"/>
+            <ListBox Margin="300 5 300 5" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" x:Name="BookListBox"
+                     ItemsSource="{Binding Path=Books, Mode=OneWay}" SelectedItem="{Binding SelectedBook, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="{Binding Path=Name, Mode=OneWay}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock Margin="300 0 0 0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
+                       Text="{Binding ElementName=BookListBox, Path=SelectedItem.Id, StringFormat= Id: {0}}" />
+            <TextBlock Margin="300 20 0 0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
+                       Text="{Binding ElementName=BookListBox, Path=SelectedItem.Title, StringFormat= Title: {0}}" />
+            <TextBlock Margin="300 40 0 0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
+                       Text="{Binding ElementName=BookListBox, Path=SelectedItem.Author, StringFormat= Author: {0}}" />
+            <TextBlock Margin="300 60 0 0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
+                       Text="{Binding ElementName=BookListBox, Path=SelectedItem.BookGenre, StringFormat= Genre: {0}}" />
+
+            <Button Grid.Row="2" Height="30" Width="100" Content="Add Book" FontFamily="Verdana" Margin="300 10 0 0"
+                    HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding AddCommand}"
+                    CommandParameter="AddUser" />
+            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Edit Book" Margin="450 10 0 0"
+                    HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding EditCommand}"
+                    CommandParameter="EditUser" />
+            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Delete Book" Margin="600 10 0 0"
+                    HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding DeleteCommand}" />
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.ColumnSpan="2" FontFamily="Verdana" Content="Manage Book:" FontSize="32" FontWeight="Bold" />
+
+                <Label Content="Title:" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Margin="3" Grid.Row="1"
+                       VerticalAlignment="Center" />
+
+                <TextBlock Grid.Column="1" Margin="0 7 0 0" Grid.Row="1" 
+                           Text="{Binding Path=SelectedBook.Title, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1"
+                         Text="{Binding Path=Title, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{Binding ErrorCollection[Title]}" VerticalAlignment="Center" Width="120" FontFamily="Verdana"/>
+
+                <Label Content="Author:" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Margin="3" Grid.Row="2"
+                       VerticalAlignment="Center" />
+
+                <TextBlock Grid.Column="1" Margin="0 7 0 0" Grid.Row="2"
+                           Text="{Binding Path=SelectedBook.Author, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2"
+                         Text="{Binding Path=Author, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{Binding ErrorCollection[Author]}" VerticalAlignment="Center" Width="120" />
+
+                <Label Content="BookGenre:" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Margin="3" Grid.Row="3"
+                       VerticalAlignment="Center" />
+
+                <TextBlock Grid.Column="1" Margin="0 7 0 0" Grid.Row="3"
+                           Text="{Binding Path=SelectedBook.BookGenre, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3"
+                          ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                          SelectedItem="{Binding Path=SelectedBook.BookGenre}"
+                          Text="{Binding Path=BookGenre, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                          VerticalAlignment="Center" Width="120" />
+
+            </Grid>
+        </Grid>
+    </StackPanel>
 </UserControl>
