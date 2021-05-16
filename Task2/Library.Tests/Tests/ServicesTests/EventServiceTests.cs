@@ -93,10 +93,8 @@ namespace Library.LogicTests
             Assert.AreEqual(37, service.GetEvent(2).Client.Age);
             Assert.AreEqual(date_1, service.GetEvent(2).Date);
         }
-
-
-
-        /*[TestMethod]
+        /*
+        [TestMethod]
         public void DbserviceRentEventTest()
         {
             service.AddBook(new Db.Book(6, "Michal Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1));

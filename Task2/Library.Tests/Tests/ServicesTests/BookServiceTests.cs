@@ -107,5 +107,40 @@ namespace Library.LogicTests
             IEnumerable<Book> catalog = service.GetBookCatalog();
             Assert.IsTrue(catalog.Contains(service.GetBook(1)));
         }
+
+        [TestMethod]
+        public void CheckAvaiabilityTest()
+        {
+            
+            Assert.IsTrue(service.CheckAvaiability(new Db.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
+          
+        }
+        /*
+        [TestMethod]
+        public void CheckIfDamagedTest()
+        {
+            service.AddBook(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20)));
+            service.ReportDamaged(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20)), new Db.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(2018, 10, 20));
+
+            Assert.IsTrue(service.CheckIfDamaged(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20))));
+        }
+        */
+        /*
+        [TestMethod]
+        public void CheckIfDamagedTest()
+        {
+            service.AddClient(new Db.Client(4, "Mateusz", "Owczarek", 22));
+            service.ReportDamaged(new Db.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)), new Db.Client(4, "Mateusz", "Owczarek", 22),  ;
+
+            Assert.IsTrue(service.CheckIfDamaged(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20))));
+        }*/
+
+        [TestMethod]
+        public void CheckIfDamagedTest()
+        {
+
+            Assert.IsFalse(service.CheckIfDamaged(new Db.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
+
+        }
     }
 }

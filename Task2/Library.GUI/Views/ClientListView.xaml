@@ -54,7 +54,8 @@
                     HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding EditCommand}"
                     CommandParameter="EditUser" />
             <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Delete Client" Margin="600 10 0 0"
-                    HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding DeleteCommand}" />
+                    HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding DeleteCommand}"
+                    CommandParameter="DeleteUser"/>
         </Grid>
         <Grid>
             <Grid.RowDefinitions>
