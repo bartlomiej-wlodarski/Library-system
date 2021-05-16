@@ -3,10 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Library.GUI.Views"
              xmlns:viewModels="clr-namespace:Library.GUI.ViewModels"
-             xmlns:data1="clr-namespace:Db;assembly=Db"
-             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -29,7 +26,7 @@
             </Grid.ColumnDefinitions>
             <Label Content="List of Clients:" HorizontalAlignment="Left" FontSize="18" FontWeight="Bold" FontFamily="Verdana" Grid.Column="2" Height="35" Margin="26,0,0,0" VerticalAlignment="Top" />
             <ListBox Margin="300 5 300 5" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" x:Name="ClientListBox"
-                     ItemsSource="{Binding Path=Clients, Mode=OneWay}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
+                     ItemsSource="{Binding Path=Clients, Mode=OneWay}" SelectedItem="{Binding SelectedClient, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
@@ -84,7 +81,7 @@
                        VerticalAlignment="Center" />
 
                 <TextBlock Grid.Column="1" Margin="0 7 0 0" Grid.Row="1"
-                           Text="{Binding Path=SelectedUser.Name, UpdateSourceTrigger=PropertyChanged}" />
+                           Text="{Binding Path=SelectedClient.Name, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1"
                          Text="{Binding Path=Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          ToolTip="{Binding ErrorCollection[Name]}" VerticalAlignment="Center" Width="120" />
@@ -93,7 +90,7 @@
                        VerticalAlignment="Center" />
 
                 <TextBlock Grid.Column="1" Margin="0 7 0 0" Grid.Row="2"
-                           Text="{Binding Path=SelectedUser.Surname, UpdateSourceTrigger=PropertyChanged}" />
+                           Text="{Binding Path=SelectedClient.Surname, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2"
                          Text="{Binding Path=Surname, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          ToolTip="{Binding ErrorCollection[Surname]}" VerticalAlignment="Center" Width="120" />
@@ -102,7 +99,7 @@
                        VerticalAlignment="Center" />
 
                 <TextBlock Grid.Column="1" Margin="0 7 0 0" Grid.Row="3"
-                           Text="{Binding Path=SelectedUser.AmountOfBooksRented, UpdateSourceTrigger=PropertyChanged}" />
+                           Text="{Binding Path=SelectedClient.AmountOfBooksRented, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3"
                          Text="{Binding Path=AmountOfBooksRented, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          VerticalAlignment="Center" Width="120" />
