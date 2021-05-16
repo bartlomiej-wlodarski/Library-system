@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Library.Data
+namespace Db
 {
     public class ReturnEvent : Event
     {

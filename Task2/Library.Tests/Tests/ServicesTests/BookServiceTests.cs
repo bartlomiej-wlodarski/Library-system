@@ -115,16 +115,42 @@ namespace Library.LogicTests
             Assert.IsTrue(service.CheckAvaiability(new Db.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
           
         }
-        /*
+
         [TestMethod]
+        [ExpectedException(typeof(NullReferenceException), "check damage of non-existent book")]
         public void CheckIfDamagedTest()
         {
-            service.AddBook(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20)));
-            service.ReportDamaged(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20)), new Db.Client(1, "Bartlomiej", "Wlodarski", 20), new DateTime(2018, 10, 20));
-
-            Assert.IsTrue(service.CheckIfDamaged(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20))));
+            service.CheckIfDamaged(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20)));
         }
-        */
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException), "report damage of null client for null book")]
+        public void ReportDamagedTest()
+        {
+            service.ReportDamaged(null, null, date_1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException), "report rapaired of null client for null book")]
+        public void ReportRepairedTest()
+        {
+            service.ReportRepaired(null, null, date_1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException), "rent null book")]
+        public void RentBookTest()
+        {
+            service.RentEvent(1, null, date_1, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException), "return null book")]
+        public void ReturntBookTest()
+        {
+            service.ReturnEvent(1, null, date_1, null);
+        }
+
         /*
         [TestMethod]
         public void CheckIfDamagedTest()
@@ -134,13 +160,13 @@ namespace Library.LogicTests
 
             Assert.IsTrue(service.CheckIfDamaged(new Db.Book(5, "Krolestwo", "Szczepan Twardoch", 380, Db.BookGenre.Horror, new DateTime(2017, 11, 20))));
         }*/
-
+        /*
         [TestMethod]
         public void CheckIfDamagedTest()
         {
 
             Assert.IsFalse(service.CheckIfDamaged(new Db.Book(1, "Maly Ksiaze", "Saint-Exupery", 120, Db.BookGenre.Childrens, date_1)));
 
-        }
+        }*/
     }
 }
