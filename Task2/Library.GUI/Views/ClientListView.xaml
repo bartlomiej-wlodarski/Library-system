@@ -9,9 +9,9 @@
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1000">
-    <!--<UserControl.Resources>
-        <viewModels:UserListViewModel x:Key="UserListViewModel" />
-    </UserControl.Resources>-->
+    <UserControl.Resources>
+        <viewModels:ClientListViewModel x:Key="ClientListViewModel" />
+    </UserControl.Resources>
 
     <StackPanel DataContext="{StaticResource ClientListViewModel}" Orientation="Vertical" Background="Moccasin">
         <Grid>

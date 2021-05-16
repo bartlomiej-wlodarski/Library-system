@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Library.GUI.ViewModels;
-using Library.UI.ViewModels;
 
 namespace Library.GUI.Commands
 {

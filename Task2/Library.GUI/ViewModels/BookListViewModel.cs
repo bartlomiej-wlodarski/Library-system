@@ -18,7 +18,7 @@ namespace Library.GUI.ViewModels
             Task.Run(() => { Books = new ObservableCollection<Book>(_bookService.GetBookCatalog()); });
             //AddCommand = new RelayCommand(Add, () => CanAdd);
             //DeleteCommand = new RelayCommand(Delete, CanExecute);
-            //EditCommand = new RelayCommand(Edit, CanExecute);
+            ///EditCommand = new RelayCommand(Edit, CanExecute);
         }
 
         private bool CanExecute()

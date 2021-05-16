@@ -9,17 +9,11 @@
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1000">
-    <!--
+    
     <UserControl.Resources>
-        <vm:BookListViewModel x:Key="BookListViewModel" />
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="data1:BookEnum" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </UserControl.Resources>-->
-    <StackPanel DataContext="{StaticResource BookViewModel}" Orientation="Vertical" Background="Moccasin">
+        <viewModels:BookListViewModel x:Key="BookListViewModel" />
+    </UserControl.Resources>
+    <StackPanel DataContext="{StaticResource BookListViewModel}" Orientation="Vertical" Background="Moccasin">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35" />
@@ -107,10 +101,9 @@
                        VerticalAlignment="Center" />
 
                 <TextBlock Grid.Column="1" Margin="0 7 0 0" Grid.Row="3"
-                           Text="{Binding Path=SelectedBook.BookGenre, UpdateSourceTrigger=PropertyChanged}" />
+                           Text="{Binding Path=SelectedBook.Genre, UpdateSourceTrigger=PropertyChanged}" />
                 <ComboBox Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3"
-                          ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                          SelectedItem="{Binding Path=SelectedBook.BookGenre}"
+                          SelectedItem="{Binding Path=SelectedBook.Genre}"
                           Text="{Binding Path=BookGenre, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                           VerticalAlignment="Center" Width="120" />
 
