@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Library.GUI.Commands;
-using Library.UI.ViewModels;
+using System;
 
 namespace Library.GUI.ViewModels
 {
@@ -16,9 +16,9 @@ namespace Library.GUI.ViewModels
         public BookListViewModel()
         {
             Task.Run(() => { Books = new ObservableCollection<Book>(_bookService.GetBookCatalog()); });
-            //AddCommand = new RelayCommand(Add, () => CanAdd);
-            //DeleteCommand = new RelayCommand(Delete, CanExecute);
-            ///EditCommand = new RelayCommand(Edit, CanExecute);
+            AddCommand = new RelayCommand(Add, () => CanAdd);
+            DeleteCommand = new RelayCommand(Delete, CanExecute);
+            EditCommand = new RelayCommand(Edit, CanExecute);
         }
 
         private bool CanExecute()
@@ -33,6 +33,9 @@ namespace Library.GUI.ViewModels
         private ObservableCollection<Book> _books;
         private string _title;
         private string _author;
+        private int _id;
+        private int pages;
+        private DateTime date_of_publication;
 
         #endregion
 
@@ -131,13 +134,13 @@ namespace Library.GUI.ViewModels
                 AddCommand.RaiseCanExecuteChanged();
             }
         }
-        /*
+        
         public BookGenre genre
         {
-            get => _BookGenre;
+            get => genre;
             set
             {
-                _genre = value;
+                genre = value;
                 RaisePropertyChanged(nameof(BookGenre));
             }
         }
@@ -148,48 +151,32 @@ namespace Library.GUI.ViewModels
 
         public void Delete()
         {
-            Task.Factory.StartNew(() => _bookService.DeleteBook(SelectedBook.Id))
-                .ContinueWith(t1 => BookService = _bookService);
+            Task.Factory.StartNew(() => _bookService.RemoveBook(SelectedBook.Id))
+                .ContinueWith(t1 => _bookService);
 
             RaisePropertyChanged(nameof(Books));
         }
 
-        public void AddBook()
+        public void Add()
         {
-            var book = new Book
-            {
-                Id = id;
-                Title = title;
-                Author = author;
-                Pages = pages;
-                Genre = genre;
-                Date_of_publication = date_of_publication;
-        };
+            Book book = new Db.Book(_id, Title, Author, pages, Db.BookGenre.Childrens, date_of_publication);
 
             Task.Factory.StartNew(() => _bookService.AddBook(book))
-                .ContinueWith(t1 => BookService = _bookService);
+                .ContinueWith(t1 => _bookService);
 
             RaisePropertyChanged(nameof(Books));
         }
 
         public void Edit()
         {
-            var book = new Book
-            {
-                Id = _id;
-                Title = Title;
-                Author = Author;
-                Pages = Pages;
-                BookGenre = BookGenre;
-                Date_of_publication = Date_of_publication;
-    };
+            Book book = new Db.Book(_id, Title, Author, pages, Db.BookGenre.Childrens, date_of_publication);
 
             Task.Factory.StartNew(() => _bookService.EditBook(book))
-                .ContinueWith(t1 => BookService = _bookService);
+                .ContinueWith(t1 =>  _bookService);
 
             RaisePropertyChanged(nameof(Books));
         }
-        */
+        
         #endregion
     }
 }

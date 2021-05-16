@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Db;
-using Library.UI.ViewModels;
 using Library.Logic.Services;
 using Library.GUI.Commands;
 
@@ -35,6 +34,7 @@ namespace Library.GUI.ViewModels
         private string _name;
         private string _surname;
         private int _age;
+        private int _id;
 
         #endregion
 
@@ -134,57 +134,36 @@ namespace Library.GUI.ViewModels
             }
         }
 
-        /*public int AmountOfBooksRented
-        {
-            get => _amountOfBooksRented;
-            set
-            {
-                _amountOfBooksRented = value;
-                RaisePropertyChanged(nameof(AmountOfBooksRented));
-            }
-        }*/
-
         #endregion
 
         #region commands
 
         public void Delete()
         {
-            /*Task.Factory.StartNew(() => _userService.DeleteUser(SelectedUser.Id))
-                .ContinueWith(t1 => UserService = _userService);
+            Task.Factory.StartNew(() => _clientService.RemoveClient(SelectedClient.Id))
+                .ContinueWith(t1 => _clientService);
 
-            RaisePropertyChanged(nameof(Users));*/
+            RaisePropertyChanged(nameof(Client));
         }
 
         public void Add()
         {
-           /* var user = new User
-            {
-                Name = Name,
-                Surname = Surname,
-                AmountOfBooksRented = AmountOfBooksRented
-            };
+            Client client = new Db.Client(_id, Name, Surname, _age);
 
-            Task.Factory.StartNew(() => _userService.AddUser(user))
-                .ContinueWith(t1 => UserService = _userService);
+            Task.Factory.StartNew(() => _clientService.AddClient(client))
+                .ContinueWith(t1 =>  _clientService);
 
-            RaisePropertyChanged(nameof(Users));*/
+            RaisePropertyChanged(nameof(Clients));
         }
 
         public void Edit()
         {
-            /*var user = new User
-            {
-                Id = SelectedUser.Id,
-                Name = Name,
-                Surname = Surname,
-                AmountOfBooksRented = AmountOfBooksRented
-            };
+            Client client = new Db.Client(SelectedClient.Id, Name, Surname, _age);
 
-            Task.Factory.StartNew(() => _userService.EditUser(user))
-                .ContinueWith(t1 => UserService = _userService);
+            Task.Factory.StartNew(() => _clientService.EditClient(client))
+                .ContinueWith(t1 => _clientService);
 
-            RaisePropertyChanged(nameof(Users));*/
+            RaisePropertyChanged(nameof(Clients));
         }
 
         #endregion
