@@ -29,7 +29,7 @@ namespace Library.GUI.ViewModels
         #region private
 
         private Book _selectedBook;
-        private BookService _bookService = new BookService(new DbContext());
+        private BookService _bookService = new BookService();
         private ObservableCollection<Book> _books;
         private string _title;
         private string _author;
