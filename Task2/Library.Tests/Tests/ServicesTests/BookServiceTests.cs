@@ -5,7 +5,6 @@ using Db;
 using Library.Logic.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Library.LogicTests
 {
     [TestClass]

@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DbCreation\DbCreation.csproj" />
     <ProjectReference Include="..\Library.GUI\Library.GUI.csproj" />
     <ProjectReference Include="..\Library.Logic\Library.Logic.csproj" />
   </ItemGroup>

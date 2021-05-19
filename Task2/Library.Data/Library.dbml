@@ -1,33 +1,41 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="library" Class="LibraryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-ID9HRR5;Initial Catalog=library;Integrated Security=True" SettingsObjectName="Library.Data.Properties.Settings" SettingsPropertyName="libraryConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Reader" Member="Readers">
-    <Type Name="Reader">
-      <Column Name="reader_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="reader_f_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="reader_l_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Reader_Event" Member="Events" ThisKey="reader_id" OtherKey="reader" Type="Event" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Pttask" Class="LibraryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=Pttask;Integrated Security=True" SettingsObjectName="Library.Data.Properties.Settings" SettingsPropertyName="PttaskConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Books" Member="Books">
+    <Type Name="Books">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Author" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Pages" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Genre" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date_of_publication" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="StateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Books_Events" Member="Events" ThisKey="Id" OtherKey="BookId" Type="Events" />
+      <Association Name="State_Books" Member="State" ThisKey="StateId" OtherKey="Id" Type="State" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Book" Member="Books">
-    <Type Name="Book">
-      <Column Name="book_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="author" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="publishment_year" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="genre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Book_Event" Member="Events" ThisKey="book_id" OtherKey="book" Type="Event" />
+  <Table Name="dbo.Clients" Member="Clients">
+    <Type Name="Clients">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Clients_Events" Member="Events" ThisKey="Id" OtherKey="ClientId" Type="Events" />
     </Type>
   </Table>
-  <Table Name="dbo.Event" Member="Events">
-    <Type Name="Event">
-      <Column Name="event_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="event_time" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="is_borrowing_event" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="book" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="reader" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Book_Event" Member="Book1" ThisKey="book" OtherKey="book_id" Type="Book" IsForeignKey="true" />
-      <Association Name="Reader_Event" Member="Reader1" ThisKey="reader" OtherKey="reader_id" Type="Reader" IsForeignKey="true" />
+  <Table Name="dbo.Events" Member="Events">
+    <Type Name="Events">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="BookId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Books_Events" Member="Books" ThisKey="BookId" OtherKey="Id" Type="Books" IsForeignKey="true" />
+      <Association Name="Clients_Events" Member="Clients" ThisKey="ClientId" OtherKey="Id" Type="Clients" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.State" Member="State">
+    <Type Name="State">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="State_Books" Member="Books" ThisKey="Id" OtherKey="StateId" Type="Books" />
     </Type>
   </Table>
 </Database>
