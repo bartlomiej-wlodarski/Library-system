@@ -1,4 +1,4 @@
-﻿using Db;
+﻿using Library.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,59 +6,64 @@ using System.Text;
 
 namespace Library.Logic.Services
 {
-    public class EventService
+    public class Eventservice
     {
-        private readonly DbContext context;
+        private readonly LibraryDataContext context;
 
-        public EventService(DbContext context)
+        public Eventservice(LibraryDataContext context)
         {
             this.context = context;
         }
 
-        public void AddEvent(Event newEvent)
+        public void AddEvents(int Id, int ClientId, System.DateTime Date, int BookId)
         {
-            context.Set<Event>().Add(newEvent);
-            context.SaveChanges();
+            Events events = new Events();
+            events.Id = Id;
+            events.ClientId = ClientId;
+            events.Date = Date;
+            events.BookId = BookId;
+            context.Events.InsertOnSubmit(events);
+            context.SubmitChanges();
         }
 
-        public void EditEvent(Event newEvent)
+        public void EditEvents(int Id, int ClientId, System.DateTime Date, int BookId)
         {
-            Event @event = context.Set<Event>().FirstOrDefault(x => x.Id.Equals(newEvent.Id));
+            Events @Events = context.Events.FirstOrDefault(x => x.Id.Equals(Id));
 
-            if (@event != null)
+            if (@Events != null)
             {
-                @event.Book = newEvent.Book;
-                @event.Client = newEvent.Client;
-                @event.Date = newEvent.Date;
+                @Events.BookId = BookId;
+                @Events.ClientId = ClientId;
+                @Events.Date = Date;
 
-                context.SaveChanges();
+                context.SubmitChanges();
             }
         }
 
-        public Event GetEvent(int num)
+        public Events GetEvents(int num)
         {
-            return context.Set<Event>().FirstOrDefault(x => x.Id == num);
+            return context.Events.FirstOrDefault(x => x.Id == num);
         }
 
-        public IEnumerable<Event> GetEventCatalog()
+        public IEnumerable<Events> GetEventsCatalog()
         {
-            return context.Set<Event>();
+            return context.Events;
         }
 
-        public void RemoveEvent(int num)
+        public void RemoveEvents(int num)
         {
-            Event @event = context.Set<Event>().FirstOrDefault(x => x.Id.Equals(num));
+            Events @Events = context.Events.FirstOrDefault(x => x.Id.Equals(num));
 
-            if (@event != null)
+            if (@Events != null)
             {
-                context.Set<Event>().Remove(@event);
-                context.SaveChanges();
+                context.Events.DeleteOnSubmit(@Events);
+                context.SubmitChanges();
             }
         }
 
         public int GetEventsNumber()
         {
-            return context.Set<Event>().Count();
+            return context.Events.Count();
         }
     }
 }

@@ -99,7 +99,7 @@
                        VerticalAlignment="Center" />
 
                 <TextBlock Grid.Column="1" Margin="0 7 0 0" Grid.Row="3"
-                           Text="{Binding Path=SelectedClient.AmountOfBooksRented, UpdateSourceTrigger=PropertyChanged}" />
+                           Text="{Binding UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3"
                          Text="{Binding Path=AmountOfBooksRented, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          VerticalAlignment="Center" Width="120" />

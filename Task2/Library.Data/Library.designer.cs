@@ -768,6 +768,8 @@ namespace Library.Data
 		
 		private int _Id;
 		
+		private System.Nullable<int> _Value;
+		
 		private EntitySet<Books> _Books;
 		
     #region Extensibility Method Definitions
@@ -776,6 +778,8 @@ namespace Library.Data
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
+    partial void OnValueChanging(System.Nullable<int> value);
+    partial void OnValueChanged();
     #endregion
 		
 		public State()
@@ -800,6 +804,26 @@ namespace Library.Data
 					this._Id = value;
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="Int")]
+		public System.Nullable<int> Value
+		{
+			get
+			{
+				return this._Value;
+			}
+			set
+			{
+				if ((this._Value != value))
+				{
+					this.OnValueChanging(value);
+					this.SendPropertyChanging();
+					this._Value = value;
+					this.SendPropertyChanged("Value");
+					this.OnValueChanged();
 				}
 			}
 		}

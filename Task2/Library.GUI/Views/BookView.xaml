@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Library.GUI.Views"
              xmlns:viewModels="clr-namespace:Library.GUI.ViewModels"
-             xmlns:data1="clr-namespace:Db;assembly=Db"
+             xmlns:data1="clr-namespace:Library.Data;assembly=Library.Data"
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1000">

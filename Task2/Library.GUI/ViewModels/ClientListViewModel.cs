@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Db;
 using Library.Logic.Services;
 using Library.GUI.Commands;
+using Library.Data;
 
 namespace Library.GUI.ViewModels
 {
@@ -15,7 +15,7 @@ namespace Library.GUI.ViewModels
 
         public ClientListViewModel()
         {
-            Task.Run(() => { Clients = new ObservableCollection<Client>(_clientService.GetClients()); });
+            Task.Run(() => { Clients = new ObservableCollection<Clients>(_clientService.GetClients()); });
             AddCommand = new RelayCommand(Add, () => CanAdd);
             DeleteCommand = new RelayCommand(Delete, CanExecute);
             EditCommand = new RelayCommand(Edit, CanExecute);
@@ -28,9 +28,9 @@ namespace Library.GUI.ViewModels
 
         #region private
 
-        private Client _selectedClient;
-        private ClientService _clientService = new ClientService(new DbContext());
-        private ObservableCollection<Client> _clients;
+        private Clients _selectedClient;
+        private ClientService _clientService = new ClientService(new LibraryDataContext());
+        private ObservableCollection<Clients> _clients;
         private string _name;
         private string _surname;
         private int _age;
@@ -80,7 +80,7 @@ namespace Library.GUI.ViewModels
 
         #region implementedProperties
 
-        public ObservableCollection<Client> Clients
+        public ObservableCollection<Clients> Clients
         {
             get => _clients;
             set
@@ -90,7 +90,7 @@ namespace Library.GUI.ViewModels
             }
         }
 
-        public Client SelectedClient
+        public Clients SelectedClient
         {
             get => _selectedClient;
             set
@@ -102,13 +102,13 @@ namespace Library.GUI.ViewModels
             }
         }
 
-        public ClientService UserService
+        public ClientService ClientService
         {
             get => _clientService;
             set
             {
                 _clientService = value;
-                Clients = new ObservableCollection<Client>(value.GetClients());
+                Clients = new ObservableCollection<Clients>(value.GetClients());
             }
         }
 
@@ -143,24 +143,18 @@ namespace Library.GUI.ViewModels
             Task.Factory.StartNew(() => _clientService.RemoveClient(SelectedClient.Id))
                 .ContinueWith(t1 => _clientService);
 
-            RaisePropertyChanged(nameof(Client));
+            RaisePropertyChanged(nameof(Clients));
         }
 
         public void Add()
-        {
-            Client client = new Db.Client(_id, Name, Surname, _age);
-
-            Task.Factory.StartNew(() => _clientService.AddClient(client))
+        {Task.Factory.StartNew(() => _clientService.AddClient(_id, Name, Surname, _age))
                 .ContinueWith(t1 =>  _clientService);
 
             RaisePropertyChanged(nameof(Clients));
         }
 
         public void Edit()
-        {
-            Client client = new Db.Client(SelectedClient.Id, Name, Surname, _age);
-
-            Task.Factory.StartNew(() => _clientService.EditClient(client))
+        {Task.Factory.StartNew(() => _clientService.EditClient(SelectedClient.Id, Name, Surname, _age))
                 .ContinueWith(t1 => _clientService);
 
             RaisePropertyChanged(nameof(Clients));

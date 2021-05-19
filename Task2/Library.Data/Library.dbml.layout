@@ -20,27 +20,27 @@
         <elementListCompartment Id="067be9d9-813a-4b17-8e61-0f29be86b11d" absoluteBounds="6.265, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="89aa09c0-b614-43bc-bb3f-93397ca9ee9f" absoluteBounds="0.75, 1.5, 2, 1.0016910807291666">
+    <classShape Id="89aa09c0-b614-43bc-bb3f-93397ca9ee9f" absoluteBounds="0.75, 1.5, 2, 1.1939925130208331">
       <DataClassMoniker Name="/LibraryDataContext/State" />
       <nestedChildShapes>
-        <elementListCompartment Id="a625cf51-54f9-4bff-9006-daf963d2c2fb" absoluteBounds="0.765, 1.96, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a625cf51-54f9-4bff-9006-daf963d2c2fb" absoluteBounds="0.765, 1.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.5 : 2.03929768880208); (6.25 : 2.03929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 2.03929768880208); (6.25 : 2.03929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LibraryDataContext/Books/Books_Events" />
       <nodes>
         <classShapeMoniker Id="1e6f5ebc-e3de-41a7-b403-a8e89bcd32c8" />
         <classShapeMoniker Id="c5be1eb6-f031-404f-a337-fd02243298d1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 6.03929768880208); (7.25 : 6.03929768880208); (7.25 : 2.82859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 6.03929768880208); (7.25 : 6.03929768880208); (7.25 : 2.82859537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LibraryDataContext/Clients/Clients_Events" />
       <nodes>
         <classShapeMoniker Id="2eada477-fff6-4f38-bb53-c696655e3d53" />
         <classShapeMoniker Id="c5be1eb6-f031-404f-a337-fd02243298d1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 2.00084554036458); (3.5 : 2.00084554036458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.09699625651042); (3.5 : 2.09699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/LibraryDataContext/State/State_Books" />
       <nodes>
         <classShapeMoniker Id="89aa09c0-b614-43bc-bb3f-93397ca9ee9f" />

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Library.Data;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
-using System.Text;
 
 namespace Library.Logic.Services
 {
@@ -9,60 +9,60 @@ namespace Library.Logic.Services
     {
         private readonly LibraryDataContext context;
 
-        public ClientService(DbContext context)
+        public ClientService(LibraryDataContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<Client> GetClients()
+        public IEnumerable<Clients> GetClients()
         {
-            return context.Set<Client>();
+            return context.Clients;
         }
 
-        public void AddClient(Client client)
+        public void AddClient(int Id, string Name, string Surname, int Age)
         {
-            context.Set<Client>().Add(client);
-            context.SaveChanges();
+            Clients client = new Clients();
+            client.Id = Id;
+            client.Name = Name;
+            client.Surname = Surname;
+            client.Age = Age;
+            context.Clients.InsertOnSubmit(client);
+            context.SubmitChanges();
         }
 
-        public void EditClient(Client client)
+        public void EditClient(int Id, string Name, string Surname, int Age)
         {
-            Client _client = context.Set<Client>().FirstOrDefault(x => x.Id.Equals(client.Id));
+            Clients client = context.Clients.FirstOrDefault(x => x.Id.Equals(Id));
 
-            if (_client != null)
+            if (client != null)
             {
-                _client.Name = client.Name;
-                _client.Surname = client.Surname;
-                _client.Age = client.Age;
+                client.Name = Name;
+                client.Surname = Surname;
+                client.Age = Age;
 
-                context.SaveChanges();
+                context.SubmitChanges();
             }
         }
 
         public void RemoveClient(int num)
         {
-            Client client = context.Set<Client>().FirstOrDefault(x => x.Id.Equals(num));
+            Clients client = context.Clients.FirstOrDefault(x => x.Id.Equals(num));
 
             if (client != null)
             {
-                context.Set<Client>().Remove(client);
-                context.SaveChanges();
+                context.Clients.DeleteOnSubmit(client);
+                context.SubmitChanges();
             }
         }
 
-        public IEnumerable<Client> GetClientCatalog()
+        public Clients GetClient(int num)
         {
-            return context.Set<Client>();
-        }
-
-        public Client GetClient(int num)
-        {
-            return context.Set<Client>().FirstOrDefault(x => x.Id == num);
+            return context.Clients.FirstOrDefault(x => x.Id == num);
         }
 
         public int GetClientsNumber()
         {
-            return context.Set<Client>().Count();
+            return context.Clients.Count();
         }
     }
 }

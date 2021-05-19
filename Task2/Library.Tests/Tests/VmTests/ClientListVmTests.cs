@@ -1,25 +1,38 @@
 ﻿using System.Collections.ObjectModel;
-using Db;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Library.GUI.ViewModels;
+using Library.Data;
 
 namespace Library.Tests.Tests.VmTests
 {
     [TestClass]
-    public class ClientListVmTests
+    public class ClientsListVmTests
     {
         private readonly ClientListViewModel model;
         private bool canBeExecuted = true;
 
-        public ClientListVmTests()
+        public ClientsListVmTests()
         {
+            Clients client1 = new();
+            Clients client2 = new();
+            Clients client3 = new();
+            client1.Id = 1;
+            client1.Name = "Bartlomiej";
+            client1.Surname = "Wlodarski";
+            client1.Age = 20;
+            client2.Id = 2;
+            client2.Name = "Maciej";
+            client2.Surname = "Wlodarczyk";
+            client2.Age = 21;
+            client3.Id = 3;
+            client3.Name = "Jan";
+            client3.Surname = "Kowalski";
+            client3.Age = 40;
             model = new ClientListViewModel
             {
-                Clients = new ObservableCollection<Client>
+                Clients = new ObservableCollection<Clients>
                 {
-                    new Db.Client(1, "Bartlomiej", "Wlodarski", 20),
-                    new Db.Client(2, "Maciej", "Wlodarczyk", 21),
-                    new Db.Client(3, "Jan", "Kowalski", 40)
+                    client1, client2, client3
                 }
             };
         }
@@ -69,13 +82,17 @@ namespace Library.Tests.Tests.VmTests
         }
 
         [TestMethod]
-        public void ReturnClient()
+        public void ReturnClients()
         {
-            Client client = new Db.Client(25, "Bartlomiej", "Wlodarski", 20);
+            Clients client1 = new();
+            client1.Id = 1;
+            client1.Name = "Bartlomiej";
+            client1.Surname = "Wlodarski";
+            client1.Age = 20;
 
             var Clients = model.Clients;
 
-            Assert.AreEqual(client.Name, Clients[0].Name);
+            Assert.AreEqual(client1.Name, Clients[0].Name);
         }
 
         [TestMethod]

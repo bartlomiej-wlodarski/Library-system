@@ -1,11 +1,11 @@
-﻿using Db;
-using Library.Logic.Services;
+﻿using Library.Logic.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Library.GUI.Commands;
 using System;
+using Library.Data;
 
 namespace Library.GUI.ViewModels
 {
@@ -15,7 +15,7 @@ namespace Library.GUI.ViewModels
 
         public BookListViewModel()
         {
-            Task.Run(() => { Books = new ObservableCollection<Book>(_bookService.GetBookCatalog()); });
+            Task.Run(() => { Books = new ObservableCollection<Books>(_bookService.GetBookCatalog()); });
             AddCommand = new RelayCommand(Add, () => CanAdd);
             DeleteCommand = new RelayCommand(Delete, CanExecute);
             EditCommand = new RelayCommand(Edit, CanExecute);
@@ -28,9 +28,9 @@ namespace Library.GUI.ViewModels
 
         #region private
 
-        private Book _selectedBook;
-        private BookService _bookService = new BookService();
-        private ObservableCollection<Book> _books;
+        private Books _selectedBook;
+        private BookService _bookService = new BookService(new LibraryDataContext());
+        private ObservableCollection<Books> _books;
         private string _title;
         private string _author;
         private int _id;
@@ -81,7 +81,7 @@ namespace Library.GUI.ViewModels
 
         #region implementedProperties
 
-        public ObservableCollection<Book> Books
+        public ObservableCollection<Books> Books
         {
             get => _books;
             set
@@ -91,7 +91,7 @@ namespace Library.GUI.ViewModels
             }
         }
 
-        public Book SelectedBook
+        public Books SelectedBook
         {
             get => _selectedBook;
             set
@@ -109,7 +109,7 @@ namespace Library.GUI.ViewModels
             set
             {
                 _bookService = value;
-                Books = new ObservableCollection<Book>(value.GetBookCatalog());
+                Books = new ObservableCollection<Books>(value.GetBookCatalog());
             }
         }
 
@@ -135,13 +135,13 @@ namespace Library.GUI.ViewModels
             }
         }
         
-        public BookGenre genre
+        public int genre
         {
             get => genre;
             set
             {
                 genre = value;
-                RaisePropertyChanged(nameof(BookGenre));
+                RaisePropertyChanged(nameof(genre));
             }
         }
         
@@ -159,19 +159,14 @@ namespace Library.GUI.ViewModels
 
         public void Add()
         {
-            Book book = new Db.Book(_id, Title, Author, pages, Db.BookGenre.Childrens, date_of_publication);
-
-            Task.Factory.StartNew(() => _bookService.AddBook(book))
+            Task.Factory.StartNew(() => _bookService.AddBook(_id, Title, Author, pages, genre, date_of_publication))
                 .ContinueWith(t1 => _bookService);
 
             RaisePropertyChanged(nameof(Books));
         }
 
         public void Edit()
-        {
-            Book book = new Db.Book(_id, Title, Author, pages, Db.BookGenre.Childrens, date_of_publication);
-
-            Task.Factory.StartNew(() => _bookService.EditBook(book))
+        {Task.Factory.StartNew(() => _bookService.EditBook(_id, Title, Author, pages, genre, date_of_publication))
                 .ContinueWith(t1 =>  _bookService);
 
             RaisePropertyChanged(nameof(Books));

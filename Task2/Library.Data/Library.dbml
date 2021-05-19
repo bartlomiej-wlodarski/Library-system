@@ -35,6 +35,7 @@
   <Table Name="dbo.State" Member="State">
     <Type Name="State">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Value" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="State_Books" Member="Books" ThisKey="Id" OtherKey="StateId" Type="Books" />
     </Type>
   </Table>

@@ -1,4 +1,4 @@
-﻿using Db;
+﻿using Library.Data;
 using Library.GUI.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 namespace Library.Tests.Tests.VmTests
 {
     [TestClass]
-    public class BookListVmTests
+    public class BooksListVmTests
     {
         readonly DateTime date_1 = new DateTime(1943, 4, 6);
         readonly DateTime date_2 = new DateTime(1997, 6, 26);
@@ -16,15 +16,34 @@ namespace Library.Tests.Tests.VmTests
         private readonly BookListViewModel model;
         private bool canBeExecuted = true;
 
-        public BookListVmTests()
+        public BooksListVmTests()
         {
+            Books book1 = new();
+            Books book2 = new();
+            Books book3 = new();
+            book1.Id = 1;
+            book1.Title = "Maly Ksiaze";
+            book1.Author = "Saint-Exupery";
+            book1.Pages = 120;
+            book1.Genre = 1;
+            book1.Date_of_publication = date_1;
+            book2.Id = 2;
+            book2.Title = "Harry Potter and the Philosopher's Stone";
+            book2.Author = "J. K. Rowling";
+            book2.Pages = 667;
+            book2.Genre = 3;
+            book2.Date_of_publication = date_2;
+            book3.Id = 3;
+            book3.Title = "Chrobot";
+            book3.Author = "Tomasz Michniewicz";
+            book3.Pages = 320;
+            book3.Genre = 6;
+            book3.Date_of_publication = date_3;
             model = new BookListViewModel
             {
-                Books = new ObservableCollection<Book>
+                Books = new ObservableCollection<Books>
                 {
-                    new Book(1, "Maly Ksiaze", "Saint-Exupery", 120, BookGenre.Childrens, date_1),
-                    new Book(2, "Harry Potter and the Philosopher's Stone", "J. K. Rowling", 667, BookGenre.Fantasy, date_2),
-                    new Book(3, "Chrobot", "Tomasz Michniewicz", 320, BookGenre.Personal, date_3)
+                    book1, book2, book3
                 }
             };
         }
@@ -72,16 +91,6 @@ namespace Library.Tests.Tests.VmTests
                 canBeExecuted = false;
             
             Assert.IsFalse(editCommand.CanExecute(canBeExecuted));
-        }
-
-        [TestMethod]
-        public void ReturnClient()
-        {
-            Book book = new Book(7, "Chrobot", "Saint-Exupery", 320, BookGenre.Personal, date_3);
-            
-            var books = model.Books;
-            
-            Assert.AreEqual(book.Author, books[0].Author);
         }
 
         [TestMethod]
