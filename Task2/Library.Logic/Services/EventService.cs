@@ -17,11 +17,13 @@ namespace Library.Logic.Services
 
         public void AddEvents(int Id, int ClientId, System.DateTime Date, int BookId)
         {
-            Events events = new Events();
-            events.Id = Id;
-            events.ClientId = ClientId;
-            events.Date = Date;
-            events.BookId = BookId;
+            Events events = new Events
+            {
+                Id = Id,
+                ClientId = ClientId,
+                Date = Date,
+                BookId = BookId
+            };
             context.Events.InsertOnSubmit(events);
             context.SubmitChanges();
         }
@@ -42,12 +44,19 @@ namespace Library.Logic.Services
 
         public Events GetEvents(int num)
         {
-            return context.Events.FirstOrDefault(x => x.Id == num);
+            IQueryable<Events> query = from events in context.Events
+                                       where events.Id == num select events;
+
+            return query.First();
+            //return context.Events.FirstOrDefault(x => x.Id == num);
         }
 
         public IEnumerable<Events> GetEventsCatalog()
         {
-            return context.Events;
+            IQueryable<Events> query = from events in context.Events
+                                       select events;
+
+            return query;
         }
 
         public void RemoveEvents(int num)
@@ -63,7 +72,11 @@ namespace Library.Logic.Services
 
         public int GetEventsNumber()
         {
-            return context.Events.Count();
+            IQueryable<Events> query = from events in context.Events
+                                       select events;
+
+            return query.Count();
+            //return context.Events.Count();
         }
     }
 }
