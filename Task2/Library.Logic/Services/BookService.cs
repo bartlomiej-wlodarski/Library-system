@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Library.Data;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,15 +15,13 @@ namespace Library.Logic.Services
 
         public void AddBook(int Id, string Title, string Author, int Pages, int Genre, System.DateTime Date)
         {
-            Books book = new Books
-            {
-                Id = Id,
-                Title = Title,
-                Author = Author,
-                Pages = Pages,
-                Date_of_publication = Date,
-                Genre = Genre
-            };
+            Books book = new Books();
+            book.Id = Id;
+            book.Title = Title;
+            book.Author = Author;
+            book.Pages = Pages;
+            book.Date_of_publication = Date;
+            book.Genre = Genre;
             context.Books.InsertOnSubmit(book);
             context.SubmitChanges();
         }
@@ -48,12 +46,11 @@ namespace Library.Logic.Services
 
         public Books GetBook(int num)
         {
-            IQueryable<Books> query =  from books in context.Books 
-                                       where books.Id == num select books;
+            IQueryable<Books> query = from books in context.Books
+                                      where books.Id == num
+                                      select books;
 
             return query.First();
-
-            //return context.Books.FirstOrDefault(x => x.Id == num);
         }
 
         public bool CheckIfDamaged(int Id)
@@ -86,7 +83,6 @@ namespace Library.Logic.Services
             IQueryable<Books> query = from books in context.Books select books;
 
             return query;
-            //return context.Books;
         }
 
         public void RemoveBook(int num)
@@ -127,7 +123,6 @@ namespace Library.Logic.Services
             IQueryable<Books> query = from books in context.Books select books;
 
             return query.Count();
-            //return context.Books.Count();
         }
     }
 }

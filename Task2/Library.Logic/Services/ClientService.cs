@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Library.Data;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
@@ -20,18 +20,15 @@ namespace Library.Logic.Services
                                         select clients;
 
             return query;
-            //return context.Clients;
         }
 
         public void AddClient(int Id, string Name, string Surname, int Age)
         {
-            Clients client = new Clients
-            {
-                Id = Id,
-                Name = Name,
-                Surname = Surname,
-                Age = Age
-            };
+            Clients client = new Clients();
+            client.Id = Id;
+            client.Name = Name;
+            client.Surname = Surname;
+            client.Age = Age;
             context.Clients.InsertOnSubmit(client);
             context.SubmitChanges();
         }
@@ -68,7 +65,6 @@ namespace Library.Logic.Services
                                         select clients;
 
             return query.First();
-            //return context.Clients.FirstOrDefault(x => x.Id == num);
         }
 
         public int GetClientsNumber()
@@ -77,8 +73,6 @@ namespace Library.Logic.Services
                                         select clients;
 
             return query.Count();
-
-            //return context.Clients.Count();
         }
     }
 }

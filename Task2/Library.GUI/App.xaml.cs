@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
-namespace View
+namespace Library.GUI
 {
     /// <summary>
     /// Interaction logic for App.xaml

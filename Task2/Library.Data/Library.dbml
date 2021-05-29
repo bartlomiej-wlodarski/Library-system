@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Pttask" Class="LibraryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=Pttask;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="PttaskConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=Pttask;Integrated Security=True" SettingsObjectName="Library.Data.Properties.Settings" SettingsPropertyName="PttaskConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Books" Member="Books">
     <Type Name="Books">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -9,8 +9,8 @@
       <Column Name="Genre" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Date_of_publication" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="StateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Book_Event" Member="Events" ThisKey="Id" OtherKey="BookId" Type="Events" />
-      <Association Name="State_Book" Member="State" ThisKey="StateId" OtherKey="Id" Type="State" IsForeignKey="true" />
+      <Association Name="Books_Events" Member="Events" ThisKey="Id" OtherKey="BookId" Type="Events" />
+      <Association Name="State_Books" Member="State" ThisKey="StateId" OtherKey="Id" Type="State" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Clients" Member="Clients">
@@ -19,7 +19,7 @@
       <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Client_Event" Member="Events" ThisKey="Id" OtherKey="ClientId" Type="Events" />
+      <Association Name="Clients_Events" Member="Events" ThisKey="Id" OtherKey="ClientId" Type="Events" />
     </Type>
   </Table>
   <Table Name="dbo.Events" Member="Events">
@@ -28,15 +28,15 @@
       <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Date" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="BookId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Book_Event" Member="Books" ThisKey="BookId" OtherKey="Id" Type="Books" IsForeignKey="true" />
-      <Association Name="Client_Event" Member="Clients" ThisKey="ClientId" OtherKey="Id" Type="Clients" IsForeignKey="true" />
+      <Association Name="Books_Events" Member="Books" ThisKey="BookId" OtherKey="Id" Type="Books" IsForeignKey="true" />
+      <Association Name="Clients_Events" Member="Clients" ThisKey="ClientId" OtherKey="Id" Type="Clients" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.State" Member="State">
     <Type Name="State">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Value" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="State_Book" Member="Books" ThisKey="Id" OtherKey="StateId" Type="Books" />
+      <Association Name="State_Books" Member="Books" ThisKey="Id" OtherKey="StateId" Type="Books" />
     </Type>
   </Table>
 </Database>

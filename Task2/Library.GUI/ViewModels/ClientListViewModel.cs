@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Library.GUI.Commands;
-using Data;
 using Library.Logic.Services;
+using Library.GUI.Commands;
+using Library.Data;
 
 namespace Library.GUI.ViewModels
 {

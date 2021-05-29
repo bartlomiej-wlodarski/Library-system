@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Data
+namespace Library.Data
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -45,7 +45,7 @@ namespace Data
     #endregion
 		
 		public LibraryDataContext() : 
-				base(global::Data.Properties.Settings.Default.PttaskConnectionString, mappingSource)
+				base(global::Library.Data.Properties.Settings.Default.PttaskConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -302,7 +302,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Event", Storage="_Events", ThisKey="Id", OtherKey="BookId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Books_Events", Storage="_Events", ThisKey="Id", OtherKey="BookId")]
 		public EntitySet<Events> Events
 		{
 			get
@@ -315,7 +315,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="State_Book", Storage="_State", ThisKey="StateId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="State_Books", Storage="_State", ThisKey="StateId", OtherKey="Id", IsForeignKey=true)]
 		public State State
 		{
 			get
@@ -498,7 +498,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Event", Storage="_Events", ThisKey="Id", OtherKey="ClientId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Clients_Events", Storage="_Events", ThisKey="Id", OtherKey="ClientId")]
 		public EntitySet<Events> Events
 		{
 			get
@@ -671,7 +671,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Event", Storage="_Books", ThisKey="BookId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Books_Events", Storage="_Books", ThisKey="BookId", OtherKey="Id", IsForeignKey=true)]
 		public Books Books
 		{
 			get
@@ -705,7 +705,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Event", Storage="_Clients", ThisKey="ClientId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Clients_Events", Storage="_Clients", ThisKey="ClientId", OtherKey="Id", IsForeignKey=true)]
 		public Clients Clients
 		{
 			get
@@ -828,7 +828,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="State_Book", Storage="_Books", ThisKey="Id", OtherKey="StateId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="State_Books", Storage="_Books", ThisKey="Id", OtherKey="StateId")]
 		public EntitySet<Books> Books
 		{
 			get

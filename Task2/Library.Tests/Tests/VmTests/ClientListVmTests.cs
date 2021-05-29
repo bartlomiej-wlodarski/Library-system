@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Data;
 using Library.GUI.ViewModels;
+using Library.Data;
 
 namespace Library.Tests.Tests.VmTests
 {
@@ -13,9 +13,9 @@ namespace Library.Tests.Tests.VmTests
 
         public ClientsListVmTests()
         {
-            Clients client1 = new Clients();
-            Clients client2 = new Clients();
-            Clients client3 = new Clients();
+            Clients client1 = new();
+            Clients client2 = new();
+            Clients client3 = new();
             client1.Id = 1;
             client1.Name = "Bartlomiej";
             client1.Surname = "Wlodarski";
@@ -84,7 +84,7 @@ namespace Library.Tests.Tests.VmTests
         [TestMethod]
         public void ReturnClients()
         {
-            Clients client1 = new Clients();
+            Clients client1 = new();
             client1.Id = 1;
             client1.Name = "Bartlomiej";
             client1.Surname = "Wlodarski";

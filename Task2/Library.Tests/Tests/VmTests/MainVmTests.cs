@@ -10,7 +10,7 @@ namespace Library.Tests.Tests.VmTests
         public void BooksListViewType()
         {
             var mainViewModel = new MainViewModel();
-            mainViewModel.UpdateViewCommand.Execute("Books");
+            mainViewModel.UpdateViewCommand.Execute("Bookss");
             Assert.AreEqual(mainViewModel.SelectedViewModel.GetType(), typeof(BookListViewModel));
         }
 
@@ -26,7 +26,7 @@ namespace Library.Tests.Tests.VmTests
         public void ListViewType()
         {
             var mainViewModel = new MainViewModel();
-            mainViewModel.UpdateViewCommand.Execute("Clients");
+            mainViewModel.UpdateViewCommand.Execute("Clientss");
             Assert.AreEqual(mainViewModel.SelectedViewModel.GetType(), typeof(ClientListViewModel));
         }
     }

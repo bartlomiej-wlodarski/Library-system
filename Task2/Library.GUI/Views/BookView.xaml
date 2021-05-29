@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModels="clr-namespace:Library.GUI.ViewModels"
-             mc:Ignorable="d"
+             mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1000">
 
     <UserControl.Resources>
@@ -44,13 +44,13 @@
             <TextBlock Margin="300 60 0 0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
                        Text="{Binding ElementName=BookListBox, Path=SelectedItem.BookGenre, StringFormat= Genre: {0}}" />
 
-            <Button Grid.Row="2" Height="30" Width="100" Content="Add Books" FontFamily="Verdana" Margin="300,12,0,0"
+            <Button Grid.Row="2" Height="30" Width="100" Content="Add Book" FontFamily="Verdana" Margin="300,12,0,0"
                     HorizontalAlignment="Left" Grid.Column="1" Command="{Binding AddCommand}"
                     CommandParameter="AddBook" VerticalAlignment="Top" />
-            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Edit Books" Margin="450 10 0 0"
+            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Edit Book" Margin="450 10 0 0"
                     HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding EditCommand}"
                     CommandParameter="EditBook" />
-            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Delete Books" Margin="600 10 0 0"
+            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Delete Book" Margin="600 10 0 0"
                     HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding DeleteCommand}"
                     CommandParameter="DeleteBook"/>
         </Grid>
@@ -75,7 +75,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.ColumnSpan="2" FontFamily="Verdana" Content="Manage Books:" FontSize="32" FontWeight="Bold" />
+                <Label Grid.ColumnSpan="2" FontFamily="Verdana" Content="Manage Book:" FontSize="32" FontWeight="Bold" />
 
                 <Label Content="Title:" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Verdana" Margin="3" Grid.Row="1"
                        VerticalAlignment="Center" />

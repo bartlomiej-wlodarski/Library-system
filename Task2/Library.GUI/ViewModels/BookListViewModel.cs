@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Library.Logic.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Library.GUI.Commands;
 using System;
-using Data;
-using Library.Logic.Services;
+using Library.Data;
 
 namespace Library.GUI.ViewModels
 {

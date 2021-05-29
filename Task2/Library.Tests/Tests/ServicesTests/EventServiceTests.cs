@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data;
+using Library.Data;
 using Library.Logic.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Library.LogicTests
 {
@@ -14,6 +15,29 @@ namespace Library.LogicTests
         readonly DateTime date_1 = new DateTime(1943, 4, 6);
         readonly DateTime date_2 = new DateTime(1997, 6, 26);
         readonly DateTime date_3 = new DateTime(2018, 10, 20);
+        /*private readonly Mock<DbSet<Events>> mockEvents;
+        private readonly Mock<DbContext> mockLibrary;
+        private readonly IQueryable<Events> Eventss;
+
+        public EventsServiceTests()
+        {
+            Eventss = new List<Events>
+            {
+                new RentEvents(1, new Clients(1, "Bartlomiej", "Wlodarski", 20), date_1, new Books(1, "Maly Ksiaze", "Saint-Exupery", 120, BooksGenre.Childrens, date_1)),
+                new RentEvents(2, new Clients(2, "Maciej", "Wlodarczyk", 21), date_2, new Books(2, "Maly Ksiaze", "Saint-Exupery", 120, BooksGenre.Childrens, date_1)),
+                new ReturnEvents(3, new Clients(3, "Jan", "Kowalski", 40), date_3, new Books(3, "Maly Ksiaze", "Saint-Exupery", 120, BooksGenre.Childrens, date_1))
+            }.AsQueryable();
+
+            mockEvents = new Mock<DbSet<Events>>();
+            mockEvents.As<IQueryable<Events>>().Setup(m => m.Provider).Returns(Eventss.Provider);
+            mockEvents.As<IQueryable<Events>>().Setup(m => m.Expression).Returns(Eventss.Expression);
+            mockEvents.As<IQueryable<Events>>().Setup(m => m.ElementType).Returns(Eventss.ElementType);
+            mockEvents.As<IQueryable<Events>>().Setup(m => m.GetEnumerator()).Returns(Eventss.GetEnumerator());
+            mockLibrary = new Mock<DbContext>();
+            mockLibrary.Setup(x => x.Set<Events>()).Returns(mockEvents.Object);
+
+            service = new EventsService(mockLibrary.Object);
+        }*/
 
         [TestMethod]
         public void DbserviceAddEventsTest()

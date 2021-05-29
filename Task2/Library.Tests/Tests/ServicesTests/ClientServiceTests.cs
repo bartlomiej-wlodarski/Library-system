@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
-using Data;
+using Library.Data;
 using Library.Logic.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Library.LogicTests
 {

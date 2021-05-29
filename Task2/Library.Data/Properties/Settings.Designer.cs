@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Data.Properties {
+namespace Library.Data.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,21 +26,10 @@ namespace Data.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-GG5E1N6;Initial Catalog=PT;Integrated Security=True")]
-        public string PTConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-ID9HRR5;Initial Catalog=library;Integrated Security=True")]
+        public string libraryConnectionString {
             get {
-                return ((string)(this["PTConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-TUGORFG\\SQLEXPRESS;Initial Catalog=PT;Integrated Security=Tru" +
-            "e")]
-        public string PTConnectionString1 {
-            get {
-                return ((string)(this["PTConnectionString1"]));
+                return ((string)(this["libraryConnectionString"]));
             }
         }
         

@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Library.Data;
 using Library.GUI.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -18,9 +18,9 @@ namespace Library.Tests.Tests.VmTests
 
         public BooksListVmTests()
         {
-            Books book1 = new Books();
-            Books book2 = new Books();
-            Books book3 = new Books();
+            Books book1 = new();
+            Books book2 = new();
+            Books book3 = new();
             book1.Id = 1;
             book1.Title = "Maly Ksiaze";
             book1.Author = "Saint-Exupery";
@@ -51,7 +51,7 @@ namespace Library.Tests.Tests.VmTests
         [TestMethod]
         public void DeleteExecute()
         {
-            model.SelectedBooks = model.Books[0];
+            model.SelectedBook = model.Books[0];
             var deleteCommand = model.DeleteCommand;
             
             if (model.SelectedBook != null) canBeExecuted = true;

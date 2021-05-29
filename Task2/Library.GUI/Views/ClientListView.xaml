@@ -44,13 +44,13 @@
             <TextBlock Margin="300 60 0 0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
                        Text="{Binding ElementName=ClientListBox, Path=SelectedItem.AmountOfBooksRented, StringFormat=Books Rented: {0}}" />
 
-            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Add Clients" Margin="300 10 0 0"
+            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Add Client" Margin="300 10 0 0"
                     HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding AddCommand}"
                     CommandParameter="AddUser" />
-            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Edit Clients" Margin="450 10 0 0"
+            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Edit Client" Margin="450 10 0 0"
                     HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding EditCommand}"
                     CommandParameter="EditUser" />
-            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Delete Clients" Margin="600 10 0 0"
+            <Button Grid.Row="2" Height="30" Width="100" FontFamily="Verdana" Content="Delete Client" Margin="600 10 0 0"
                     HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Column="1" Command="{Binding DeleteCommand}"
                     CommandParameter="DeleteUser"/>
         </Grid>
