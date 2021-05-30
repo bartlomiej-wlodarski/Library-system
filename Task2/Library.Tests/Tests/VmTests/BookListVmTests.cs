@@ -1,4 +1,5 @@
 ﻿using Library.Data;
+using Library.GUI.Commands;
 using Library.GUI.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -52,7 +53,7 @@ namespace Library.Tests.Tests.VmTests
         public void DeleteExecute()
         {
             model.SelectedBook = model.Books[0];
-            var deleteCommand = model.DeleteCommand;
+            RelayCommand deleteCommand = model.DeleteCommand;
             
             if (model.SelectedBook != null) canBeExecuted = true;
             
@@ -63,7 +64,7 @@ namespace Library.Tests.Tests.VmTests
         public void DeleteDontExecute()
         {
             model.SelectedBook = null;
-            var deleteCommand = model.DeleteCommand;
+            RelayCommand deleteCommand = model.DeleteCommand;
             
             if (model.SelectedBook == null) canBeExecuted = false;
             
@@ -74,7 +75,7 @@ namespace Library.Tests.Tests.VmTests
         public void EditExecute()
         {
             model.SelectedBook = model.Books[0];
-            var editCommand = model.EditCommand;
+            RelayCommand editCommand = model.EditCommand;
             
             if (model.SelectedBook != null) canBeExecuted = true;
             
@@ -85,7 +86,7 @@ namespace Library.Tests.Tests.VmTests
         public void EditDontExecute()
         {
             model.SelectedBook = null;
-            var editCommand = model.EditCommand;
+            RelayCommand editCommand = model.EditCommand;
             
             if (model.SelectedBook == null)
                 canBeExecuted = false;
@@ -96,9 +97,9 @@ namespace Library.Tests.Tests.VmTests
         [TestMethod]
         public void CommandInitialize()
         {
-            var addCommand = model.AddCommand;
-            var editCommand = model.EditCommand;
-            var deleteCommand = model.DeleteCommand;
+            RelayCommand addCommand = model.AddCommand;
+            RelayCommand editCommand = model.EditCommand;
+            RelayCommand deleteCommand = model.DeleteCommand;
             
             Assert.IsNotNull(addCommand);
             Assert.IsNotNull(editCommand);
@@ -109,7 +110,7 @@ namespace Library.Tests.Tests.VmTests
         public void AddExecute()
         {
             model.SelectedBook = model.Books[0];
-            var addCommand = model.AddCommand;
+            RelayCommand addCommand = model.AddCommand;
             
             if (model.SelectedBook.Author != null && model.SelectedBook.Title != null) canBeExecuted = true;
             
@@ -117,10 +118,26 @@ namespace Library.Tests.Tests.VmTests
         }
 
         [TestMethod]
+        public void AddSecondGenerationMethod()
+        {
+            model.SelectedBook = new Books();
+
+            model.Author = "Writer";
+            model.genre = 3;
+            model.Title = "book_title";
+
+            RelayCommand addCommand = model.AddCommand;
+
+            if (model.SelectedBook.Author != null && model.SelectedBook.Title != null) canBeExecuted = true;
+
+            Assert.IsTrue(canBeExecuted);
+        }
+
+        [TestMethod]
         public void AddDontExecute()
         {
             model.SelectedBook = model.Books[1];
-            var addCommand = model.AddCommand;
+            RelayCommand addCommand = model.AddCommand;
             
             if (model.SelectedBook.Author == null && model.SelectedBook.Title == null)
                 canBeExecuted = false;

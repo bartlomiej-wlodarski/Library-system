@@ -4,7 +4,6 @@ using System.Linq;
 using Library.Data;
 using Library.Logic.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Library.LogicTests
 {

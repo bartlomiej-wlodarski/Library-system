@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Library.GUI.ViewModels;
 using Library.Data;
+using Library.GUI.Commands;
 
 namespace Library.Tests.Tests.VmTests
 {
@@ -41,7 +42,7 @@ namespace Library.Tests.Tests.VmTests
         public void DeleteExecute()
         {
             model.SelectedClient = model.Clients[0];
-            var deleteCommand = model.DeleteCommand;
+            RelayCommand deleteCommand = model.DeleteCommand;
             
             if (model.SelectedClient != null) canBeExecuted = true;
             
@@ -52,7 +53,7 @@ namespace Library.Tests.Tests.VmTests
         public void DeleteDontExecute()
         {
             model.SelectedClient = null;
-            var deleteCommand = model.DeleteCommand;
+            RelayCommand deleteCommand = model.DeleteCommand;
             
             if (model.SelectedClient == null) canBeExecuted = false;
             
@@ -63,7 +64,7 @@ namespace Library.Tests.Tests.VmTests
         public void EditExecute()
         {
             model.SelectedClient = model.Clients[0];
-            var editCommand = model.EditCommand;
+            RelayCommand editCommand = model.EditCommand;
             
             if (model.SelectedClient != null) canBeExecuted = true;
             
@@ -74,7 +75,7 @@ namespace Library.Tests.Tests.VmTests
         public void EditDontExecute()
         {
             model.SelectedClient = null;
-            var editCommand = model.EditCommand;
+            RelayCommand editCommand = model.EditCommand;
             
             if (model.SelectedClient == null) canBeExecuted = false;
             
@@ -90,7 +91,7 @@ namespace Library.Tests.Tests.VmTests
             client1.Surname = "Wlodarski";
             client1.Age = 20;
 
-            var Clients = model.Clients;
+            ObservableCollection<Clients> Clients = model.Clients;
 
             Assert.AreEqual(client1.Name, Clients[0].Name);
         }
@@ -98,9 +99,9 @@ namespace Library.Tests.Tests.VmTests
         [TestMethod]
         public void CommantInitialize()
         {
-            var addCommand = model.AddCommand;
-            var editCommand = model.EditCommand;
-            var deleteCommand = model.DeleteCommand;
+            RelayCommand addCommand = model.AddCommand;
+            RelayCommand editCommand = model.EditCommand;
+            RelayCommand deleteCommand = model.DeleteCommand;
 
             Assert.IsNotNull(addCommand);
             Assert.IsNotNull(editCommand);
@@ -111,7 +112,7 @@ namespace Library.Tests.Tests.VmTests
         public void AddExecute()
         {
             model.SelectedClient = model.Clients[0];
-            var addCommand = model.AddCommand;
+            RelayCommand addCommand = model.AddCommand;
             
             if (model.SelectedClient.Name != null && model.SelectedClient.Surname != null)
                 canBeExecuted = true;
@@ -123,7 +124,7 @@ namespace Library.Tests.Tests.VmTests
         public void AddDontExecute()
         {
             model.SelectedClient = model.Clients[1];
-            var addCommand = model.AddCommand;
+            RelayCommand addCommand = model.AddCommand;
             
             if (model.SelectedClient.Name == null && model.SelectedClient.Surname == null)
                 canBeExecuted = false;
