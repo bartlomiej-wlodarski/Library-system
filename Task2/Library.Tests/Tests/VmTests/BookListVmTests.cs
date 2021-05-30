@@ -49,19 +49,6 @@ namespace Library.Tests.Tests.VmTests
         }
 
         [TestMethod]
-        public void TestAddDeleteBook()
-        {
-
-            Books book4 = new(4, "Cisza", "Tom Fordk", 225, 4, date_3);
-            model.SelectedBook = model.Books[3];
-            var deleteCommand = model.DeleteCommand;
-
-            if (model.SelectedBook != null) canBeExecuted = true;
-
-            Assert.IsTrue(deleteCommand.CanExecute(canBeExecuted));
-        }
-
-        [TestMethod]
         public void DeleteExecute()
         {
             model.SelectedBook = model.Books[0];
