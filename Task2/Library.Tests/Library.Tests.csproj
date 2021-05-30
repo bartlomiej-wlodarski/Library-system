@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <Reference Include="System.Data.Linq">
-      <HintPath>..\..\..\PTTasks-2.2.1\Task2\Resources\System.Data.Linq.dll</HintPath>
+      <HintPath>..\Resources\System.Data.Linq.dll</HintPath>
     </Reference>
   </ItemGroup>
 
