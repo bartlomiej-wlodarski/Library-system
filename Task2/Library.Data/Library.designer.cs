@@ -130,9 +130,15 @@ namespace Library.Data
 		private EntitySet<Events> _Events;
 		
 		private EntityRef<State> _State;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
+        private int v1;
+        private string v2;
+        private string v3;
+        private int v4;
+        private int v5;
+        private DateTime date_3;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnIdChanging(int value);
@@ -157,8 +163,18 @@ namespace Library.Data
 			this._State = default(EntityRef<State>);
 			OnCreated();
 		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+
+        public Books(int v1, string v2, string v3, int v4, int v5, DateTime date_3)
+        {
+            this.v1 = v1;
+            this.v2 = v2;
+            this.v3 = v3;
+            this.v4 = v4;
+            this.v5 = v5;
+            this.date_3 = date_3;
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
 			get
@@ -397,9 +413,13 @@ namespace Library.Data
 		private int _Age;
 		
 		private EntitySet<Events> _Events;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
+        private int v1;
+        private string v2;
+        private string v3;
+        private int v4;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnIdChanging(int value);
@@ -417,8 +437,16 @@ namespace Library.Data
 			this._Events = new EntitySet<Events>(new Action<Events>(this.attach_Events), new Action<Events>(this.detach_Events));
 			OnCreated();
 		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+
+        public Clients(int v1, string v2, string v3, int v4)
+        {
+            this.v1 = v1;
+            this.v2 = v2;
+            this.v3 = v3;
+            this.v4 = v4;
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
 			get

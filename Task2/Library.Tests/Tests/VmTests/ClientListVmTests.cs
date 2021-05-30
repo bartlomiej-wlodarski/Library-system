@@ -38,6 +38,19 @@ namespace Library.Tests.Tests.VmTests
         }
 
         [TestMethod]
+        public void TestAddDeleteClient()
+        {
+
+            Clients client4 = new(4, "Bartosz", "Wlodarczyk", 22);
+            model.SelectedClient = model.Clients[3];
+            var deleteCommand = model.DeleteCommand;
+
+            if (model.SelectedClient != null) canBeExecuted = true;
+
+            Assert.IsTrue(deleteCommand.CanExecute(canBeExecuted));
+        }
+
+        [TestMethod]
         public void DeleteExecute()
         {
             model.SelectedClient = model.Clients[0];
